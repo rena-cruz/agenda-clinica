@@ -17,3 +17,5 @@ INSERT INTO DiaSemana(SeqDiaSemana, DiaSemana) VALUES (S_DiaSemana.nextval, 'Sex
 INSERT INTO DiaSemana(SeqDiaSemana, DiaSemana) VALUES (S_DiaSemana.nextval, 'Sabado');
 INSERT INTO DiaSemana(SeqDiaSemana, DiaSemana) VALUES (S_DiaSemana.nextval, 'Domingo');
 
+COMMIT;
+

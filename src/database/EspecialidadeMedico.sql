@@ -17,4 +17,6 @@ INSERT INTO EspecialidadeMedico(SeqEspecialidade, Especialidade, VlrPadraoConsul
 INSERT INTO EspecialidadeMedico(SeqEspecialidade, Especialidade, VlrPadraoConsulta) VALUES (S_EspecialidadeMedico.nextval, 'Oncologia', '380,00');
 INSERT INTO EspecialidadeMedico(SeqEspecialidade, Especialidade, VlrPadraoConsulta) VALUES (S_EspecialidadeMedico.nextval, 'Pediatria', '80,00');
 INSERT INTO EspecialidadeMedico(SeqEspecialidade, Especialidade, VlrPadraoConsulta) VALUES (S_EspecialidadeMedico.nextval, 'Urologia', '160,00');
+
+COMMIT;
  

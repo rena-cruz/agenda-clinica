@@ -13,3 +13,5 @@ CREATE SEQUENCE S_FormaPagto;
 INSERT INTO Formapagto(Seqformapagto, Formapagto) VALUES (S_Formapagto.nextval, 'Boleto');
 INSERT INTO Formapagto(Seqformapagto, Formapagto) VALUES (S_Formapagto.nextval, 'Cartao');
 INSERT INTO Formapagto(Seqformapagto, Formapagto) VALUES (S_Formapagto.nextval, 'Dinheiro');
+
+COMMIT;

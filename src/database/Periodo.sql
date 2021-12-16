@@ -13,3 +13,5 @@ INSERT INTO Periodo(SeqPeriodo, Periodo) VALUES (S_Periodo.nextval, 'Manha');
 INSERT INTO Periodo(SeqPeriodo, Periodo) VALUES (S_Periodo.nextval, 'Tarde');
 INSERT INTO Periodo(SeqPeriodo, Periodo) VALUES (S_Periodo.nextval, 'Noite');
 
+COMMIT;
+

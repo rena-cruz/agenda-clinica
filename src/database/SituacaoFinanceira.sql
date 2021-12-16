@@ -13,3 +13,5 @@ CREATE SEQUENCE S_SituacaoFinanceira;
 INSERT INTO SituacaoFinanceira(SeqFinanceiro, IndFinanceiro) VALUES (S_SituacaoFinanceira.nextval, 'Bloqueado');
 INSERT INTO SituacaoFinanceira(SeqFinanceiro, IndFinanceiro) VALUES (S_SituacaoFinanceira.nextval, 'Liberado');
 INSERT INTO SituacaoFinanceira(SeqFinanceiro, IndFinanceiro) VALUES (S_SituacaoFinanceira.nextval, 'Restricao');
+
+COMMIT;
