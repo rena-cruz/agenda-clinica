@@ -44,13 +44,13 @@
             this.GbxAgendamento = new System.Windows.Forms.GroupBox();
             this.LblImagem = new System.Windows.Forms.Label();
             this.TsBotoes = new System.Windows.Forms.ToolStrip();
-            this.TsbSalvar = new System.Windows.Forms.ToolStripButton();
-            this.TsbPesquisar = new System.Windows.Forms.ToolStripButton();
-            this.TsbLimpar = new System.Windows.Forms.ToolStripButton();
-            this.TsbExcluir = new System.Windows.Forms.ToolStripButton();
-            this.TssLimpar = new System.Windows.Forms.ToolStripSeparator();
+            this.TsbSalvarAgenda = new System.Windows.Forms.ToolStripButton();
             this.TssSalvar = new System.Windows.Forms.ToolStripSeparator();
+            this.TsbPesquisarAgenda = new System.Windows.Forms.ToolStripButton();
             this.TssPesquisar = new System.Windows.Forms.ToolStripSeparator();
+            this.TsbLimparAgenda = new System.Windows.Forms.ToolStripButton();
+            this.TssLimpar = new System.Windows.Forms.ToolStripSeparator();
+            this.TsbExcluirAgenda = new System.Windows.Forms.ToolStripButton();
             this.LvAgendamento = new System.Windows.Forms.ListView();
             this.ChCodigo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ChDataHorario = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -155,6 +155,7 @@
             // 
             // CbxEspecialidadeValor
             // 
+            this.CbxEspecialidadeValor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CbxEspecialidadeValor.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CbxEspecialidadeValor.FormattingEnabled = true;
             this.CbxEspecialidadeValor.Items.AddRange(new object[] {
@@ -182,6 +183,7 @@
             // 
             // CbxFormaPagto
             // 
+            this.CbxFormaPagto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CbxFormaPagto.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CbxFormaPagto.FormattingEnabled = true;
             this.CbxFormaPagto.Items.AddRange(new object[] {
@@ -207,6 +209,7 @@
             // 
             // GbxAgendamento
             // 
+            this.GbxAgendamento.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.GbxAgendamento.Controls.Add(this.MskDataHorario);
             this.GbxAgendamento.Controls.Add(this.CbxFormaPagto);
             this.GbxAgendamento.Controls.Add(this.TbxMedico);
@@ -219,7 +222,7 @@
             this.GbxAgendamento.Controls.Add(this.LblMedico);
             this.GbxAgendamento.Controls.Add(this.LblDataHorario);
             this.GbxAgendamento.Controls.Add(this.LblCodigo);
-            this.GbxAgendamento.Location = new System.Drawing.Point(205, 28);
+            this.GbxAgendamento.Location = new System.Drawing.Point(201, 14);
             this.GbxAgendamento.Margin = new System.Windows.Forms.Padding(4);
             this.GbxAgendamento.Name = "GbxAgendamento";
             this.GbxAgendamento.Padding = new System.Windows.Forms.Padding(4);
@@ -233,7 +236,7 @@
             this.LblImagem.Font = new System.Drawing.Font("Arial", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LblImagem.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.LblImagem.Image = ((System.Drawing.Image)(resources.GetObject("LblImagem.Image")));
-            this.LblImagem.Location = new System.Drawing.Point(27, 28);
+            this.LblImagem.Location = new System.Drawing.Point(13, 14);
             this.LblImagem.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LblImagem.Name = "LblImagem";
             this.LblImagem.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -245,84 +248,91 @@
             // TsBotoes
             // 
             this.TsBotoes.AutoSize = false;
+            this.TsBotoes.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.TsBotoes.Dock = System.Windows.Forms.DockStyle.None;
+            this.TsBotoes.GripMargin = new System.Windows.Forms.Padding(5);
+            this.TsBotoes.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.TsBotoes.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.TsbSalvar,
+            this.TsbSalvarAgenda,
             this.TssSalvar,
-            this.TsbPesquisar,
+            this.TsbPesquisarAgenda,
             this.TssPesquisar,
-            this.TsbLimpar,
+            this.TsbLimparAgenda,
             this.TssLimpar,
-            this.TsbExcluir,
+            this.TsbExcluirAgenda,
             this.TssExcluir});
             this.TsBotoes.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
-            this.TsBotoes.Location = new System.Drawing.Point(43, 188);
+            this.TsBotoes.Location = new System.Drawing.Point(13, 172);
             this.TsBotoes.Name = "TsBotoes";
-            this.TsBotoes.Size = new System.Drawing.Size(140, 138);
+            this.TsBotoes.Padding = new System.Windows.Forms.Padding(2);
+            this.TsBotoes.Size = new System.Drawing.Size(170, 136);
             this.TsBotoes.TabIndex = 18;
             this.TsBotoes.Text = "toolStrip1";
             // 
-            // TsbSalvar
+            // TsbSalvarAgenda
             // 
-            this.TsbSalvar.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TsbSalvar.Image = ((System.Drawing.Image)(resources.GetObject("TsbSalvar.Image")));
-            this.TsbSalvar.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.TsbSalvar.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.TsbSalvar.Name = "TsbSalvar";
-            this.TsbSalvar.Size = new System.Drawing.Size(138, 20);
-            this.TsbSalvar.Text = "    &Salvar";
-            this.TsbSalvar.Click += new System.EventHandler(this.TsbSalvar_Click);
-            // 
-            // TsbPesquisar
-            // 
-            this.TsbPesquisar.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TsbPesquisar.Image = ((System.Drawing.Image)(resources.GetObject("TsbPesquisar.Image")));
-            this.TsbPesquisar.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.TsbPesquisar.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.TsbPesquisar.Name = "TsbPesquisar";
-            this.TsbPesquisar.Size = new System.Drawing.Size(138, 20);
-            this.TsbPesquisar.Text = "    &Pesquisar";
-            this.TsbPesquisar.Click += new System.EventHandler(this.TsbPesquisar_Click);
-            // 
-            // TsbLimpar
-            // 
-            this.TsbLimpar.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TsbLimpar.Image = ((System.Drawing.Image)(resources.GetObject("TsbLimpar.Image")));
-            this.TsbLimpar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.TsbLimpar.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.TsbLimpar.Name = "TsbLimpar";
-            this.TsbLimpar.Size = new System.Drawing.Size(138, 20);
-            this.TsbLimpar.Text = "    &Limpar";
-            this.TsbLimpar.Click += new System.EventHandler(this.TsbLimpar_Click);
-            // 
-            // TsbExcluir
-            // 
-            this.TsbExcluir.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TsbExcluir.Image = ((System.Drawing.Image)(resources.GetObject("TsbExcluir.Image")));
-            this.TsbExcluir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.TsbExcluir.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.TsbExcluir.Name = "TsbExcluir";
-            this.TsbExcluir.Size = new System.Drawing.Size(138, 20);
-            this.TsbExcluir.Text = "    &Excluir";
-            this.TsbExcluir.Click += new System.EventHandler(this.TsbExcluir_Click);
-            // 
-            // TssLimpar
-            // 
-            this.TssLimpar.Name = "TssLimpar";
-            this.TssLimpar.Size = new System.Drawing.Size(138, 6);
+            this.TsbSalvarAgenda.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TsbSalvarAgenda.Image = ((System.Drawing.Image)(resources.GetObject("TsbSalvarAgenda.Image")));
+            this.TsbSalvarAgenda.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.TsbSalvarAgenda.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TsbSalvarAgenda.Name = "TsbSalvarAgenda";
+            this.TsbSalvarAgenda.Size = new System.Drawing.Size(165, 20);
+            this.TsbSalvarAgenda.Text = "&Salvar";
+            this.TsbSalvarAgenda.ToolTipText = "Salvar";
+            this.TsbSalvarAgenda.Click += new System.EventHandler(this.TsbSalvar_Click);
             // 
             // TssSalvar
             // 
             this.TssSalvar.Name = "TssSalvar";
-            this.TssSalvar.Size = new System.Drawing.Size(138, 6);
+            this.TssSalvar.Size = new System.Drawing.Size(165, 6);
+            // 
+            // TsbPesquisarAgenda
+            // 
+            this.TsbPesquisarAgenda.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TsbPesquisarAgenda.Image = ((System.Drawing.Image)(resources.GetObject("TsbPesquisarAgenda.Image")));
+            this.TsbPesquisarAgenda.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.TsbPesquisarAgenda.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TsbPesquisarAgenda.Name = "TsbPesquisarAgenda";
+            this.TsbPesquisarAgenda.Size = new System.Drawing.Size(165, 20);
+            this.TsbPesquisarAgenda.Text = "&Pesquisar";
+            this.TsbPesquisarAgenda.Click += new System.EventHandler(this.TsbPesquisar_Click);
             // 
             // TssPesquisar
             // 
             this.TssPesquisar.Name = "TssPesquisar";
-            this.TssPesquisar.Size = new System.Drawing.Size(138, 6);
+            this.TssPesquisar.Size = new System.Drawing.Size(165, 6);
+            // 
+            // TsbLimparAgenda
+            // 
+            this.TsbLimparAgenda.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TsbLimparAgenda.Image = ((System.Drawing.Image)(resources.GetObject("TsbLimparAgenda.Image")));
+            this.TsbLimparAgenda.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.TsbLimparAgenda.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TsbLimparAgenda.Name = "TsbLimparAgenda";
+            this.TsbLimparAgenda.Size = new System.Drawing.Size(165, 20);
+            this.TsbLimparAgenda.Text = "&Limpar";
+            this.TsbLimparAgenda.Click += new System.EventHandler(this.TsbLimpar_Click);
+            // 
+            // TssLimpar
+            // 
+            this.TssLimpar.Name = "TssLimpar";
+            this.TssLimpar.Size = new System.Drawing.Size(165, 6);
+            // 
+            // TsbExcluirAgenda
+            // 
+            this.TsbExcluirAgenda.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TsbExcluirAgenda.Image = ((System.Drawing.Image)(resources.GetObject("TsbExcluirAgenda.Image")));
+            this.TsbExcluirAgenda.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.TsbExcluirAgenda.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TsbExcluirAgenda.Name = "TsbExcluirAgenda";
+            this.TsbExcluirAgenda.Size = new System.Drawing.Size(165, 20);
+            this.TsbExcluirAgenda.Text = "&Excluir";
+            this.TsbExcluirAgenda.Click += new System.EventHandler(this.TsbExcluir_Click);
             // 
             // LvAgendamento
             // 
+            this.LvAgendamento.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.LvAgendamento.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.LvAgendamento.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.ChCodigo,
             this.ChDataHorario,
@@ -331,9 +341,9 @@
             this.ChEspecialidade,
             this.ChFormaPagamento});
             this.LvAgendamento.HideSelection = false;
-            this.LvAgendamento.Location = new System.Drawing.Point(27, 333);
+            this.LvAgendamento.Location = new System.Drawing.Point(13, 319);
             this.LvAgendamento.Name = "LvAgendamento";
-            this.LvAgendamento.Size = new System.Drawing.Size(722, 209);
+            this.LvAgendamento.Size = new System.Drawing.Size(732, 209);
             this.LvAgendamento.TabIndex = 19;
             this.LvAgendamento.UseCompatibleStateImageBehavior = false;
             this.LvAgendamento.View = System.Windows.Forms.View.Details;
@@ -364,7 +374,7 @@
             // 
             this.ChEspecialidade.Text = "Especialidade";
             this.ChEspecialidade.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.ChEspecialidade.Width = 120;
+            this.ChEspecialidade.Width = 130;
             // 
             // ChFormaPagamento
             // 
@@ -375,13 +385,14 @@
             // TssExcluir
             // 
             this.TssExcluir.Name = "TssExcluir";
-            this.TssExcluir.Size = new System.Drawing.Size(138, 6);
+            this.TssExcluir.Size = new System.Drawing.Size(165, 6);
             // 
             // FrmAgendamento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(758, 554);
+            this.BackColor = System.Drawing.Color.Gainsboro;
+            this.ClientSize = new System.Drawing.Size(752, 540);
             this.Controls.Add(this.LvAgendamento);
             this.Controls.Add(this.TsBotoes);
             this.Controls.Add(this.LblImagem);
@@ -418,13 +429,13 @@
         private System.Windows.Forms.GroupBox GbxAgendamento;
         private System.Windows.Forms.Label LblImagem;
         private System.Windows.Forms.ToolStrip TsBotoes;
-        private System.Windows.Forms.ToolStripButton TsbSalvar;
+        private System.Windows.Forms.ToolStripButton TsbSalvarAgenda;
         private System.Windows.Forms.ToolStripSeparator TssSalvar;
-        private System.Windows.Forms.ToolStripButton TsbPesquisar;
+        private System.Windows.Forms.ToolStripButton TsbPesquisarAgenda;
         private System.Windows.Forms.ToolStripSeparator TssPesquisar;
-        private System.Windows.Forms.ToolStripButton TsbLimpar;
+        private System.Windows.Forms.ToolStripButton TsbLimparAgenda;
         private System.Windows.Forms.ToolStripSeparator TssLimpar;
-        private System.Windows.Forms.ToolStripButton TsbExcluir;
+        private System.Windows.Forms.ToolStripButton TsbExcluirAgenda;
         private System.Windows.Forms.ListView LvAgendamento;
         private System.Windows.Forms.ColumnHeader ChDataHorario;
         private System.Windows.Forms.ColumnHeader ChPaciente;

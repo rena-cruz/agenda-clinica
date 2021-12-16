@@ -40,7 +40,7 @@
             this.BtnCadastroMedico.BackColor = System.Drawing.SystemColors.Control;
             this.BtnCadastroMedico.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnCadastroMedico.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.BtnCadastroMedico.Location = new System.Drawing.Point(348, 43);
+            this.BtnCadastroMedico.Location = new System.Drawing.Point(285, 18);
             this.BtnCadastroMedico.Name = "BtnCadastroMedico";
             this.BtnCadastroMedico.Size = new System.Drawing.Size(239, 47);
             this.BtnCadastroMedico.TabIndex = 0;
@@ -52,7 +52,7 @@
             // 
             this.BtnCadastroPaciente.BackColor = System.Drawing.SystemColors.Control;
             this.BtnCadastroPaciente.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnCadastroPaciente.Location = new System.Drawing.Point(348, 139);
+            this.BtnCadastroPaciente.Location = new System.Drawing.Point(285, 114);
             this.BtnCadastroPaciente.Name = "BtnCadastroPaciente";
             this.BtnCadastroPaciente.Size = new System.Drawing.Size(239, 47);
             this.BtnCadastroPaciente.TabIndex = 1;
@@ -64,7 +64,7 @@
             // 
             this.BtnAgendamento.BackColor = System.Drawing.SystemColors.Control;
             this.BtnAgendamento.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnAgendamento.Location = new System.Drawing.Point(348, 235);
+            this.BtnAgendamento.Location = new System.Drawing.Point(285, 210);
             this.BtnAgendamento.Name = "BtnAgendamento";
             this.BtnAgendamento.Size = new System.Drawing.Size(239, 50);
             this.BtnAgendamento.TabIndex = 2;
@@ -78,7 +78,7 @@
             this.LblImagem.Font = new System.Drawing.Font("Arial", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LblImagem.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.LblImagem.Image = ((System.Drawing.Image)(resources.GetObject("LblImagem.Image")));
-            this.LblImagem.Location = new System.Drawing.Point(26, 43);
+            this.LblImagem.Location = new System.Drawing.Point(13, 18);
             this.LblImagem.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LblImagem.Name = "LblImagem";
             this.LblImagem.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -90,7 +90,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(608, 321);
+            this.BackColor = System.Drawing.Color.Gainsboro;
+            this.ClientSize = new System.Drawing.Size(533, 273);
             this.Controls.Add(this.LblImagem);
             this.Controls.Add(this.BtnAgendamento);
             this.Controls.Add(this.BtnCadastroPaciente);

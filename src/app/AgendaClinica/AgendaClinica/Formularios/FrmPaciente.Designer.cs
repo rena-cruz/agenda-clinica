@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPaciente));
             this.PnlCadastroPaciente = new System.Windows.Forms.Panel();
             this.TbxCodigo = new System.Windows.Forms.TextBox();
             this.LblCodigo = new System.Windows.Forms.Label();
@@ -39,20 +40,28 @@
             this.LblCelular = new System.Windows.Forms.Label();
             this.LblNome = new System.Windows.Forms.Label();
             this.TbxNome = new System.Windows.Forms.TextBox();
-            this.PnlBotaoCadastroPaciente = new System.Windows.Forms.Panel();
-            this.BtnPesquisar = new System.Windows.Forms.Button();
-            this.BtnSalvar = new System.Windows.Forms.Button();
-            this.BtnLimpar = new System.Windows.Forms.Button();
             this.PnlSituacaoFinanceira = new System.Windows.Forms.Panel();
             this.CbxSituacaoFinanceira = new System.Windows.Forms.ComboBox();
             this.LblSituacaoFinanceira = new System.Windows.Forms.Label();
+            this.TsBotoesPaciente = new System.Windows.Forms.ToolStrip();
+            this.TsbSalvar = new System.Windows.Forms.ToolStripButton();
+            this.TssSalvar = new System.Windows.Forms.ToolStripSeparator();
+            this.TsbPesquisar = new System.Windows.Forms.ToolStripButton();
+            this.TssPesquisar = new System.Windows.Forms.ToolStripSeparator();
+            this.TsbLimpar = new System.Windows.Forms.ToolStripButton();
+            this.TssLimpar = new System.Windows.Forms.ToolStripSeparator();
+            this.TsbExcluir = new System.Windows.Forms.ToolStripButton();
+            this.PnlBotoes = new System.Windows.Forms.Panel();
             this.PnlCadastroPaciente.SuspendLayout();
-            this.PnlBotaoCadastroPaciente.SuspendLayout();
             this.PnlSituacaoFinanceira.SuspendLayout();
+            this.TsBotoesPaciente.SuspendLayout();
+            this.PnlBotoes.SuspendLayout();
             this.SuspendLayout();
             // 
             // PnlCadastroPaciente
             // 
+            this.PnlCadastroPaciente.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.PnlCadastroPaciente.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PnlCadastroPaciente.Controls.Add(this.TbxCodigo);
             this.PnlCadastroPaciente.Controls.Add(this.LblCodigo);
             this.PnlCadastroPaciente.Controls.Add(this.LblEmail);
@@ -172,60 +181,20 @@
             this.TbxNome.Size = new System.Drawing.Size(330, 21);
             this.TbxNome.TabIndex = 7;
             // 
-            // PnlBotaoCadastroPaciente
-            // 
-            this.PnlBotaoCadastroPaciente.Controls.Add(this.BtnPesquisar);
-            this.PnlBotaoCadastroPaciente.Controls.Add(this.BtnSalvar);
-            this.PnlBotaoCadastroPaciente.Controls.Add(this.BtnLimpar);
-            this.PnlBotaoCadastroPaciente.Location = new System.Drawing.Point(492, 14);
-            this.PnlBotaoCadastroPaciente.Name = "PnlBotaoCadastroPaciente";
-            this.PnlBotaoCadastroPaciente.Size = new System.Drawing.Size(117, 208);
-            this.PnlBotaoCadastroPaciente.TabIndex = 16;
-            // 
-            // BtnPesquisar
-            // 
-            this.BtnPesquisar.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnPesquisar.Location = new System.Drawing.Point(16, 87);
-            this.BtnPesquisar.Name = "BtnPesquisar";
-            this.BtnPesquisar.Size = new System.Drawing.Size(86, 30);
-            this.BtnPesquisar.TabIndex = 11;
-            this.BtnPesquisar.Text = "Pesquisar";
-            this.BtnPesquisar.UseVisualStyleBackColor = true;
-            this.BtnPesquisar.Click += new System.EventHandler(this.BtnPesquisar_Click);
-            // 
-            // BtnSalvar
-            // 
-            this.BtnSalvar.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnSalvar.Location = new System.Drawing.Point(16, 28);
-            this.BtnSalvar.Name = "BtnSalvar";
-            this.BtnSalvar.Size = new System.Drawing.Size(86, 30);
-            this.BtnSalvar.TabIndex = 9;
-            this.BtnSalvar.Text = "Salvar";
-            this.BtnSalvar.UseVisualStyleBackColor = true;
-            this.BtnSalvar.Click += new System.EventHandler(this.BtnSalvar_Click);
-            // 
-            // BtnLimpar
-            // 
-            this.BtnLimpar.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnLimpar.Location = new System.Drawing.Point(16, 146);
-            this.BtnLimpar.Name = "BtnLimpar";
-            this.BtnLimpar.Size = new System.Drawing.Size(86, 30);
-            this.BtnLimpar.TabIndex = 12;
-            this.BtnLimpar.Text = "Limpar";
-            this.BtnLimpar.UseVisualStyleBackColor = true;
-            this.BtnLimpar.Click += new System.EventHandler(this.BtnLimpar_Click);
-            // 
             // PnlSituacaoFinanceira
             // 
+            this.PnlSituacaoFinanceira.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.PnlSituacaoFinanceira.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PnlSituacaoFinanceira.Controls.Add(this.CbxSituacaoFinanceira);
             this.PnlSituacaoFinanceira.Controls.Add(this.LblSituacaoFinanceira);
-            this.PnlSituacaoFinanceira.Location = new System.Drawing.Point(14, 236);
+            this.PnlSituacaoFinanceira.Location = new System.Drawing.Point(14, 228);
             this.PnlSituacaoFinanceira.Name = "PnlSituacaoFinanceira";
             this.PnlSituacaoFinanceira.Size = new System.Drawing.Size(595, 82);
             this.PnlSituacaoFinanceira.TabIndex = 17;
             // 
             // CbxSituacaoFinanceira
             // 
+            this.CbxSituacaoFinanceira.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CbxSituacaoFinanceira.FormattingEnabled = true;
             this.CbxSituacaoFinanceira.Items.AddRange(new object[] {
             "Selecione",
@@ -248,13 +217,108 @@
             this.LblSituacaoFinanceira.TabIndex = 18;
             this.LblSituacaoFinanceira.Text = "Situação Financeira";
             // 
+            // TsBotoesPaciente
+            // 
+            this.TsBotoesPaciente.AutoSize = false;
+            this.TsBotoesPaciente.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.TsBotoesPaciente.Dock = System.Windows.Forms.DockStyle.None;
+            this.TsBotoesPaciente.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.TsBotoesPaciente.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TsbSalvar,
+            this.TssSalvar,
+            this.TsbPesquisar,
+            this.TssPesquisar,
+            this.TsbLimpar,
+            this.TssLimpar,
+            this.TsbExcluir});
+            this.TsBotoesPaciente.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
+            this.TsBotoesPaciente.Location = new System.Drawing.Point(0, 0);
+            this.TsBotoesPaciente.Name = "TsBotoesPaciente";
+            this.TsBotoesPaciente.Padding = new System.Windows.Forms.Padding(5, 10, 5, 5);
+            this.TsBotoesPaciente.Size = new System.Drawing.Size(127, 206);
+            this.TsBotoesPaciente.TabIndex = 20;
+            this.TsBotoesPaciente.Text = "toolStrip1";
+            // 
+            // TsbSalvar
+            // 
+            this.TsbSalvar.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TsbSalvar.Image = ((System.Drawing.Image)(resources.GetObject("TsbSalvar.Image")));
+            this.TsbSalvar.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.TsbSalvar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TsbSalvar.Name = "TsbSalvar";
+            this.TsbSalvar.Size = new System.Drawing.Size(116, 36);
+            this.TsbSalvar.Text = "&Salvar";
+            this.TsbSalvar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.TsbSalvar.Click += new System.EventHandler(this.TsbSalvar_Click);
+            // 
+            // TssSalvar
+            // 
+            this.TssSalvar.Name = "TssSalvar";
+            this.TssSalvar.Size = new System.Drawing.Size(111, 6);
+            // 
+            // TsbPesquisar
+            // 
+            this.TsbPesquisar.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TsbPesquisar.Image = ((System.Drawing.Image)(resources.GetObject("TsbPesquisar.Image")));
+            this.TsbPesquisar.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.TsbPesquisar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TsbPesquisar.Name = "TsbPesquisar";
+            this.TsbPesquisar.Size = new System.Drawing.Size(111, 36);
+            this.TsbPesquisar.Text = "&Pesquisar";
+            this.TsbPesquisar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.TsbPesquisar.Click += new System.EventHandler(this.TsbPesquisar_Click);
+            // 
+            // TssPesquisar
+            // 
+            this.TssPesquisar.Name = "TssPesquisar";
+            this.TssPesquisar.Size = new System.Drawing.Size(111, 6);
+            // 
+            // TsbLimpar
+            // 
+            this.TsbLimpar.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TsbLimpar.Image = ((System.Drawing.Image)(resources.GetObject("TsbLimpar.Image")));
+            this.TsbLimpar.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.TsbLimpar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TsbLimpar.Name = "TsbLimpar";
+            this.TsbLimpar.Size = new System.Drawing.Size(111, 36);
+            this.TsbLimpar.Text = "&Limpar";
+            this.TsbLimpar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.TsbLimpar.Click += new System.EventHandler(this.TsbLimpar_Click);
+            // 
+            // TssLimpar
+            // 
+            this.TssLimpar.Name = "TssLimpar";
+            this.TssLimpar.Size = new System.Drawing.Size(111, 6);
+            // 
+            // TsbExcluir
+            // 
+            this.TsbExcluir.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TsbExcluir.Image = ((System.Drawing.Image)(resources.GetObject("TsbExcluir.Image")));
+            this.TsbExcluir.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.TsbExcluir.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TsbExcluir.Name = "TsbExcluir";
+            this.TsbExcluir.Size = new System.Drawing.Size(111, 36);
+            this.TsbExcluir.Text = "&Excluir";
+            this.TsbExcluir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.TsbExcluir.Click += new System.EventHandler(this.TsbExcluir_Click);
+            // 
+            // PnlBotoes
+            // 
+            this.PnlBotoes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PnlBotoes.Controls.Add(this.TsBotoesPaciente);
+            this.PnlBotoes.Location = new System.Drawing.Point(480, 14);
+            this.PnlBotoes.Name = "PnlBotoes";
+            this.PnlBotoes.Size = new System.Drawing.Size(129, 208);
+            this.PnlBotoes.TabIndex = 21;
+            // 
             // FrmPaciente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(621, 346);
+            this.BackColor = System.Drawing.Color.Gainsboro;
+            this.ClientSize = new System.Drawing.Size(617, 317);
+            this.Controls.Add(this.PnlBotoes);
             this.Controls.Add(this.PnlSituacaoFinanceira);
-            this.Controls.Add(this.PnlBotaoCadastroPaciente);
             this.Controls.Add(this.PnlCadastroPaciente);
             this.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
@@ -264,9 +328,11 @@
             this.Text = "Cadastro de Paciente";
             this.PnlCadastroPaciente.ResumeLayout(false);
             this.PnlCadastroPaciente.PerformLayout();
-            this.PnlBotaoCadastroPaciente.ResumeLayout(false);
             this.PnlSituacaoFinanceira.ResumeLayout(false);
             this.PnlSituacaoFinanceira.PerformLayout();
+            this.TsBotoesPaciente.ResumeLayout(false);
+            this.TsBotoesPaciente.PerformLayout();
+            this.PnlBotoes.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -284,12 +350,17 @@
         private System.Windows.Forms.Label LblCodigo;
         private System.Windows.Forms.DateTimePicker DtpDtaNascimento;
         private System.Windows.Forms.MaskedTextBox MkTbxCelular;
-        private System.Windows.Forms.Panel PnlBotaoCadastroPaciente;
-        private System.Windows.Forms.Button BtnPesquisar;
-        private System.Windows.Forms.Button BtnSalvar;
-        private System.Windows.Forms.Button BtnLimpar;
         private System.Windows.Forms.Panel PnlSituacaoFinanceira;
         private System.Windows.Forms.ComboBox CbxSituacaoFinanceira;
         private System.Windows.Forms.Label LblSituacaoFinanceira;
+        private System.Windows.Forms.ToolStrip TsBotoesPaciente;
+        private System.Windows.Forms.ToolStripButton TsbSalvar;
+        private System.Windows.Forms.ToolStripSeparator TssSalvar;
+        private System.Windows.Forms.ToolStripButton TsbPesquisar;
+        private System.Windows.Forms.ToolStripSeparator TssPesquisar;
+        private System.Windows.Forms.ToolStripButton TsbLimpar;
+        private System.Windows.Forms.ToolStripSeparator TssLimpar;
+        private System.Windows.Forms.ToolStripButton TsbExcluir;
+        private System.Windows.Forms.Panel PnlBotoes;
     }
 }

@@ -17,34 +17,9 @@ namespace AgendaClinica.Formularios
             CarregarComboBox();
         }
 
-        private void BtnSalvar_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("O registro foi salvo");
-        }
-
-        private void BtnPesquisar_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Pesquisa ok");
-        }
-
-        private void BtnLimpar_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("O registro foi limpo");
-        }
-
         private void BtnIncluir_Click(object sender, EventArgs e)
         {
-            var diaSemana = CbxDiaSemana.SelectedItem.ToString();
-            var periodo = CbxPeriodo.SelectedItem.ToString();
-            if (diaSemana == "Selecione" || periodo == "Selecione")
-            {
-                MessageBox.Show("Selecione o valor correto");
-            }
-            else
-            {
-                string[] linha = { null, diaSemana, periodo };
-                DgvJornada.Rows.Add(linha);
-            }
+
         }
 
         private void BtnExcluir_Click(object sender, EventArgs e)
@@ -68,6 +43,31 @@ namespace AgendaClinica.Formularios
             listaPeriodo.Add("Selecione");
             listaPeriodo.Add("Teste");
             CbxPeriodo.DataSource = listaPeriodo;
+        }
+
+        private void TsbSalvar_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("O registro foi salvo");
+        }
+
+        private void TsbPesquisar_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Pesquisa ok");
+        }
+
+        private void TsbLimpar_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("O registro foi limpo");
+        }
+
+        private void TsbIncluirJornada_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Registro incluido com sucesso");
+        }
+
+        private void TsbExcluirJornada_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("O registro foi excluido");
         }
     }
 }
