@@ -1,0 +1,5 @@
+src/app/AgendaClinica/packages/*
+src/app/AgendaClinica/.vs/*
+src/app/AgendaClinica/AgendaClinica/bin/*
+src/app/AgendaClinica/AgendaClinica/obj/*
+src/app/AgendaClinica/AgendaClinica/bdconfig.txt
