@@ -51,6 +51,7 @@
             this.TsbLimparAgenda = new System.Windows.Forms.ToolStripButton();
             this.TssLimpar = new System.Windows.Forms.ToolStripSeparator();
             this.TsbExcluirAgenda = new System.Windows.Forms.ToolStripButton();
+            this.TssExcluir = new System.Windows.Forms.ToolStripSeparator();
             this.LvAgendamento = new System.Windows.Forms.ListView();
             this.ChCodigo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ChDataHorario = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -58,7 +59,6 @@
             this.ChMedico = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ChEspecialidade = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ChFormaPagamento = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.TssExcluir = new System.Windows.Forms.ToolStripSeparator();
             this.GbxAgendamento.SuspendLayout();
             this.TsBotoes.SuspendLayout();
             this.SuspendLayout();
@@ -202,7 +202,7 @@
             this.MskDataHorario.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MskDataHorario.Location = new System.Drawing.Point(196, 63);
             this.MskDataHorario.Margin = new System.Windows.Forms.Padding(4);
-            this.MskDataHorario.Mask = "00/00/000   00:00";
+            this.MskDataHorario.Mask = "00/00/0000   00:00";
             this.MskDataHorario.Name = "MskDataHorario";
             this.MskDataHorario.Size = new System.Drawing.Size(130, 22);
             this.MskDataHorario.TabIndex = 23;
@@ -329,6 +329,11 @@
             this.TsbExcluirAgenda.Text = "&Excluir";
             this.TsbExcluirAgenda.Click += new System.EventHandler(this.TsbExcluir_Click);
             // 
+            // TssExcluir
+            // 
+            this.TssExcluir.Name = "TssExcluir";
+            this.TssExcluir.Size = new System.Drawing.Size(165, 6);
+            // 
             // LvAgendamento
             // 
             this.LvAgendamento.BackColor = System.Drawing.SystemColors.AppWorkspace;
@@ -381,11 +386,6 @@
             this.ChFormaPagamento.Text = "Pagamento";
             this.ChFormaPagamento.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.ChFormaPagamento.Width = 100;
-            // 
-            // TssExcluir
-            // 
-            this.TssExcluir.Name = "TssExcluir";
-            this.TssExcluir.Size = new System.Drawing.Size(165, 6);
             // 
             // FrmAgendamento
             // 

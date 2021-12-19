@@ -49,9 +49,8 @@
             this.TsbPesquisar = new System.Windows.Forms.ToolStripButton();
             this.TssPesquisar = new System.Windows.Forms.ToolStripSeparator();
             this.TsbLimpar = new System.Windows.Forms.ToolStripButton();
-            this.TssLimpar = new System.Windows.Forms.ToolStripSeparator();
-            this.TsbExcluir = new System.Windows.Forms.ToolStripButton();
             this.PnlBotoes = new System.Windows.Forms.Panel();
+            this.TssLimpar = new System.Windows.Forms.ToolStripSeparator();
             this.PnlCadastroPaciente.SuspendLayout();
             this.PnlSituacaoFinanceira.SuspendLayout();
             this.TsBotoesPaciente.SuspendLayout();
@@ -85,7 +84,7 @@
             this.TbxCodigo.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.TbxCodigo.Name = "TbxCodigo";
             this.TbxCodigo.Size = new System.Drawing.Size(77, 21);
-            this.TbxCodigo.TabIndex = 17;
+            this.TbxCodigo.TabIndex = 1;
             // 
             // LblCodigo
             // 
@@ -118,7 +117,7 @@
             this.TbxEmail.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.TbxEmail.Name = "TbxEmail";
             this.TbxEmail.Size = new System.Drawing.Size(330, 21);
-            this.TbxEmail.TabIndex = 5;
+            this.TbxEmail.TabIndex = 3;
             // 
             // DtpDtaNascimento
             // 
@@ -126,7 +125,7 @@
             this.DtpDtaNascimento.Location = new System.Drawing.Point(28, 150);
             this.DtpDtaNascimento.Name = "DtpDtaNascimento";
             this.DtpDtaNascimento.Size = new System.Drawing.Size(200, 21);
-            this.DtpDtaNascimento.TabIndex = 15;
+            this.DtpDtaNascimento.TabIndex = 4;
             // 
             // MkTbxCelular
             // 
@@ -134,7 +133,7 @@
             this.MkTbxCelular.Mask = "(99) 00000-0000";
             this.MkTbxCelular.Name = "MkTbxCelular";
             this.MkTbxCelular.Size = new System.Drawing.Size(111, 21);
-            this.MkTbxCelular.TabIndex = 14;
+            this.MkTbxCelular.TabIndex = 5;
             // 
             // LblDtaNascimento
             // 
@@ -179,7 +178,7 @@
             this.TbxNome.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.TbxNome.Name = "TbxNome";
             this.TbxNome.Size = new System.Drawing.Size(330, 21);
-            this.TbxNome.TabIndex = 7;
+            this.TbxNome.TabIndex = 2;
             // 
             // PnlSituacaoFinanceira
             // 
@@ -196,15 +195,10 @@
             // 
             this.CbxSituacaoFinanceira.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CbxSituacaoFinanceira.FormattingEnabled = true;
-            this.CbxSituacaoFinanceira.Items.AddRange(new object[] {
-            "Selecione",
-            "Bloqueado",
-            "Liberado",
-            "Restrição"});
             this.CbxSituacaoFinanceira.Location = new System.Drawing.Point(24, 36);
             this.CbxSituacaoFinanceira.Name = "CbxSituacaoFinanceira";
             this.CbxSituacaoFinanceira.Size = new System.Drawing.Size(204, 23);
-            this.CbxSituacaoFinanceira.TabIndex = 19;
+            this.CbxSituacaoFinanceira.TabIndex = 6;
             // 
             // LblSituacaoFinanceira
             // 
@@ -229,8 +223,7 @@
             this.TsbPesquisar,
             this.TssPesquisar,
             this.TsbLimpar,
-            this.TssLimpar,
-            this.TsbExcluir});
+            this.TssLimpar});
             this.TsBotoesPaciente.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
             this.TsBotoesPaciente.Location = new System.Drawing.Point(0, 0);
             this.TsBotoesPaciente.Name = "TsBotoesPaciente";
@@ -246,7 +239,8 @@
             this.TsbSalvar.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.TsbSalvar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.TsbSalvar.Name = "TsbSalvar";
-            this.TsbSalvar.Size = new System.Drawing.Size(116, 36);
+            this.TsbSalvar.Padding = new System.Windows.Forms.Padding(7);
+            this.TsbSalvar.Size = new System.Drawing.Size(116, 50);
             this.TsbSalvar.Text = "&Salvar";
             this.TsbSalvar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.TsbSalvar.Click += new System.EventHandler(this.TsbSalvar_Click);
@@ -254,7 +248,7 @@
             // TssSalvar
             // 
             this.TssSalvar.Name = "TssSalvar";
-            this.TssSalvar.Size = new System.Drawing.Size(111, 6);
+            this.TssSalvar.Size = new System.Drawing.Size(116, 6);
             // 
             // TsbPesquisar
             // 
@@ -263,7 +257,8 @@
             this.TsbPesquisar.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.TsbPesquisar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.TsbPesquisar.Name = "TsbPesquisar";
-            this.TsbPesquisar.Size = new System.Drawing.Size(111, 36);
+            this.TsbPesquisar.Padding = new System.Windows.Forms.Padding(7);
+            this.TsbPesquisar.Size = new System.Drawing.Size(116, 50);
             this.TsbPesquisar.Text = "&Pesquisar";
             this.TsbPesquisar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.TsbPesquisar.Click += new System.EventHandler(this.TsbPesquisar_Click);
@@ -271,7 +266,7 @@
             // TssPesquisar
             // 
             this.TssPesquisar.Name = "TssPesquisar";
-            this.TssPesquisar.Size = new System.Drawing.Size(111, 6);
+            this.TssPesquisar.Size = new System.Drawing.Size(116, 6);
             // 
             // TsbLimpar
             // 
@@ -280,27 +275,11 @@
             this.TsbLimpar.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.TsbLimpar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.TsbLimpar.Name = "TsbLimpar";
-            this.TsbLimpar.Size = new System.Drawing.Size(111, 36);
+            this.TsbLimpar.Padding = new System.Windows.Forms.Padding(7);
+            this.TsbLimpar.Size = new System.Drawing.Size(116, 50);
             this.TsbLimpar.Text = "&Limpar";
             this.TsbLimpar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.TsbLimpar.Click += new System.EventHandler(this.TsbLimpar_Click);
-            // 
-            // TssLimpar
-            // 
-            this.TssLimpar.Name = "TssLimpar";
-            this.TssLimpar.Size = new System.Drawing.Size(111, 6);
-            // 
-            // TsbExcluir
-            // 
-            this.TsbExcluir.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TsbExcluir.Image = ((System.Drawing.Image)(resources.GetObject("TsbExcluir.Image")));
-            this.TsbExcluir.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.TsbExcluir.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.TsbExcluir.Name = "TsbExcluir";
-            this.TsbExcluir.Size = new System.Drawing.Size(111, 36);
-            this.TsbExcluir.Text = "&Excluir";
-            this.TsbExcluir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.TsbExcluir.Click += new System.EventHandler(this.TsbExcluir_Click);
             // 
             // PnlBotoes
             // 
@@ -310,6 +289,11 @@
             this.PnlBotoes.Name = "PnlBotoes";
             this.PnlBotoes.Size = new System.Drawing.Size(129, 208);
             this.PnlBotoes.TabIndex = 21;
+            // 
+            // TssLimpar
+            // 
+            this.TssLimpar.Name = "TssLimpar";
+            this.TssLimpar.Size = new System.Drawing.Size(116, 6);
             // 
             // FrmPaciente
             // 
@@ -325,6 +309,7 @@
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "FrmPaciente";
             this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Cadastro de Paciente";
             this.PnlCadastroPaciente.ResumeLayout(false);
             this.PnlCadastroPaciente.PerformLayout();
@@ -359,8 +344,7 @@
         private System.Windows.Forms.ToolStripButton TsbPesquisar;
         private System.Windows.Forms.ToolStripSeparator TssPesquisar;
         private System.Windows.Forms.ToolStripButton TsbLimpar;
-        private System.Windows.Forms.ToolStripSeparator TssLimpar;
-        private System.Windows.Forms.ToolStripButton TsbExcluir;
         private System.Windows.Forms.Panel PnlBotoes;
+        private System.Windows.Forms.ToolStripSeparator TssLimpar;
     }
 }
