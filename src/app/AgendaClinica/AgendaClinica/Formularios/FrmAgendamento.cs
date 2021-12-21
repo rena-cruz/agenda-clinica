@@ -18,6 +18,14 @@ namespace AgendaClinica.Formularios
 
         private void CarregarComboBox()
         {
+            List<string> listaCliente = new List<string>();
+            listaCliente.Add("Selecione");
+            CbxPaciente.DataSource = listaCliente;
+
+            List<string> listaMedico = new List<string>();
+            listaMedico.Add("Selecione");
+            CbxMedico.DataSource = listaMedico;
+
             List<string> listaEspecialidadeValor = new List<string>();
             listaEspecialidadeValor.Add("Selecione");
             listaEspecialidadeValor.Add("Cardiologia R$190,00");
@@ -45,8 +53,8 @@ namespace AgendaClinica.Formularios
         {
             TbxCodigo.Clear();
             MskDataHorario.Clear();
-            TbxPaciente.Clear();
-            TbxMedico.Clear();
+            CbxPaciente.SelectedIndex = 0;
+            CbxMedico.SelectedIndex = 0;
             CbxEspecialidadeValor.SelectedIndex = 0;
             CbxFormaPagto.SelectedIndex = 0;
         }

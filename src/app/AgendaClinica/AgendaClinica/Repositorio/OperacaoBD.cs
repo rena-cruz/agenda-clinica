@@ -1,4 +1,5 @@
 ﻿using AgendaClinica.DTO;
+using AgendaClinica.Repositorio.DTO;
 using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
@@ -120,6 +121,119 @@ namespace AgendaClinica.Repositorio
                 ConexaoBD.FecharConexao();
 
                 return listaPeriodo;
+            }
+            catch (Exception ex)
+            {
+                ConexaoBD.FecharConexao();
+                throw ex;
+            }
+        }
+
+        public static long BuscarSeqEspecialidade(string pEspecialidade)
+        {
+            try
+            {
+                StringBuilder sql = new StringBuilder();
+                sql.Append($" SELECT a.seqespecialidade FROM especialidademedico a WHERE a.especialidade = :especialidade ");
+
+                OracleCommand comando = new OracleCommand();
+                comando.Connection = ConexaoBD.AbrirConexao(stringConexao);
+                comando.CommandText = sql.ToString();
+                comando.Parameters.Add(":especialidade", OracleDbType.Varchar2).Value = pEspecialidade;
+                var sequence = comando.ExecuteScalar();
+
+                ConexaoBD.FecharConexao();
+
+                return long.Parse(sequence.ToString());
+            }
+            catch (Exception ex)
+            {
+                ConexaoBD.FecharConexao();
+                throw ex;
+            }
+        }
+
+        public static long BuscarSeqDiaSemana(string pDiaSemana)
+        {
+            try
+            {
+                StringBuilder sql = new StringBuilder();
+                sql.Append($" SELECT a.seqdiasemana FROM diasemana a WHERE a.diasemana = :diaSemana ");
+
+                OracleCommand comando = new OracleCommand();
+                comando.Connection = ConexaoBD.AbrirConexao(stringConexao);
+                comando.CommandText = sql.ToString();
+                comando.Parameters.Add(":diaSemana", OracleDbType.Varchar2).Value = pDiaSemana;
+                var sequence = comando.ExecuteScalar();
+
+                ConexaoBD.FecharConexao();
+
+                return long.Parse(sequence.ToString());
+            }
+            catch (Exception ex)
+            {
+                ConexaoBD.FecharConexao();
+                throw ex;
+            }
+        }
+
+        public static long BuscarSeqPeriodo(string pPeriodo)
+        {
+            try
+            {
+                StringBuilder sql = new StringBuilder();
+                sql.Append($" SELECT a.seqperiodo FROM periodo a WHERE a.periodo = :periodo ");
+
+                OracleCommand comando = new OracleCommand();
+                comando.Connection = ConexaoBD.AbrirConexao(stringConexao);
+                comando.CommandText = sql.ToString();
+                comando.Parameters.Add(":periodo", OracleDbType.Varchar2).Value = pPeriodo;
+                var sequence = comando.ExecuteScalar();
+
+                ConexaoBD.FecharConexao();
+
+                return long.Parse(sequence.ToString());
+            }
+            catch (Exception ex)
+            {
+                ConexaoBD.FecharConexao();
+                throw ex;
+            }
+        }
+
+        public static long BuscarProximoValorSequence(string pNomeSequence)
+        {
+            try
+            {
+                StringBuilder sql = new StringBuilder();
+                sql.Append($" SELECT {pNomeSequence}.Nextval FROM dual ");
+
+                OracleCommand comando = new OracleCommand();
+                comando.Connection = ConexaoBD.AbrirConexao(stringConexao);
+                comando.CommandText = sql.ToString();
+                var sequence = comando.ExecuteScalar();
+
+                ConexaoBD.FecharConexao();
+
+                return long.Parse(sequence.ToString());
+            }
+            catch (Exception ex)
+            {
+                ConexaoBD.FecharConexao();
+                throw ex;
+            }
+        }
+
+        public static void ExecutarComando(string pSql)
+        {
+            try
+            {
+                OracleCommand comando = new OracleCommand();
+                comando.Connection = ConexaoBD.AbrirConexao(stringConexao);
+                comando.CommandText = pSql;
+                comando.ExecuteNonQuery();
+
+                ConexaoBD.FecharConexao();
             }
             catch (Exception ex)
             {

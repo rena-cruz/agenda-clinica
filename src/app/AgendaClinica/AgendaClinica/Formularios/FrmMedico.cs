@@ -61,7 +61,9 @@ namespace AgendaClinica.Formularios
                  Jornada = jornada
             };
 
-            MessageBox.Show($"O registro {medico.Nome} {medico.Especialidade} {medico.Jornada[0].DiaSemana} foi salvo");
+            servico.SalvarMedico(medico);
+
+            MessageBox.Show($"O registro foi salvo");
         }
 
         private void TsbPesquisar_Click(object sender, EventArgs e)
@@ -94,6 +96,8 @@ namespace AgendaClinica.Formularios
                 MessageBox.Show("Limpe a tela e informe o CRM");
                 return;
             }
+
+
 
             if (TbxCRM.Text.Equals(medico.Crm))
             {

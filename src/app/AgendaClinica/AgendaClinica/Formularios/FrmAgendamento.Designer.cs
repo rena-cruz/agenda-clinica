@@ -35,10 +35,8 @@
             this.LblPaciente = new System.Windows.Forms.Label();
             this.LblEspecialidadeValor = new System.Windows.Forms.Label();
             this.LblFormaPagto = new System.Windows.Forms.Label();
-            this.TbxPaciente = new System.Windows.Forms.TextBox();
             this.TbxCodigo = new System.Windows.Forms.TextBox();
             this.CbxEspecialidadeValor = new System.Windows.Forms.ComboBox();
-            this.TbxMedico = new System.Windows.Forms.TextBox();
             this.CbxFormaPagto = new System.Windows.Forms.ComboBox();
             this.MskDataHorario = new System.Windows.Forms.MaskedTextBox();
             this.GbxAgendamento = new System.Windows.Forms.GroupBox();
@@ -59,6 +57,8 @@
             this.ChMedico = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ChEspecialidade = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ChFormaPagamento = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.CbxPaciente = new System.Windows.Forms.ComboBox();
+            this.CbxMedico = new System.Windows.Forms.ComboBox();
             this.GbxAgendamento.SuspendLayout();
             this.TsBotoes.SuspendLayout();
             this.SuspendLayout();
@@ -135,15 +135,6 @@
             this.LblFormaPagto.TabIndex = 7;
             this.LblFormaPagto.Text = "Forma de Pagamento";
             // 
-            // TbxPaciente
-            // 
-            this.TbxPaciente.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TbxPaciente.Location = new System.Drawing.Point(196, 112);
-            this.TbxPaciente.Margin = new System.Windows.Forms.Padding(4);
-            this.TbxPaciente.Name = "TbxPaciente";
-            this.TbxPaciente.Size = new System.Drawing.Size(328, 21);
-            this.TbxPaciente.TabIndex = 8;
-            // 
             // TbxCodigo
             // 
             this.TbxCodigo.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -171,15 +162,6 @@
             this.CbxEspecialidadeValor.Name = "CbxEspecialidadeValor";
             this.CbxEspecialidadeValor.Size = new System.Drawing.Size(328, 23);
             this.CbxEspecialidadeValor.TabIndex = 19;
-            // 
-            // TbxMedico
-            // 
-            this.TbxMedico.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TbxMedico.Location = new System.Drawing.Point(196, 160);
-            this.TbxMedico.Margin = new System.Windows.Forms.Padding(4);
-            this.TbxMedico.Name = "TbxMedico";
-            this.TbxMedico.Size = new System.Drawing.Size(328, 21);
-            this.TbxMedico.TabIndex = 21;
             // 
             // CbxFormaPagto
             // 
@@ -210,12 +192,12 @@
             // GbxAgendamento
             // 
             this.GbxAgendamento.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.GbxAgendamento.Controls.Add(this.CbxMedico);
+            this.GbxAgendamento.Controls.Add(this.CbxPaciente);
             this.GbxAgendamento.Controls.Add(this.MskDataHorario);
             this.GbxAgendamento.Controls.Add(this.CbxFormaPagto);
-            this.GbxAgendamento.Controls.Add(this.TbxMedico);
             this.GbxAgendamento.Controls.Add(this.CbxEspecialidadeValor);
             this.GbxAgendamento.Controls.Add(this.TbxCodigo);
-            this.GbxAgendamento.Controls.Add(this.TbxPaciente);
             this.GbxAgendamento.Controls.Add(this.LblFormaPagto);
             this.GbxAgendamento.Controls.Add(this.LblEspecialidadeValor);
             this.GbxAgendamento.Controls.Add(this.LblPaciente);
@@ -387,6 +369,44 @@
             this.ChFormaPagamento.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.ChFormaPagamento.Width = 100;
             // 
+            // CbxPaciente
+            // 
+            this.CbxPaciente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CbxPaciente.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CbxPaciente.FormattingEnabled = true;
+            this.CbxPaciente.Items.AddRange(new object[] {
+            "Selecione",
+            "Cardiologia - R$190,00",
+            "Geriatria - R$100,00",
+            "Ginecologia - R$90,00",
+            "Oncologia - R$380,00",
+            "Pediatria - R$80,00",
+            "Urologia - R$160,00"});
+            this.CbxPaciente.Location = new System.Drawing.Point(196, 111);
+            this.CbxPaciente.Margin = new System.Windows.Forms.Padding(4);
+            this.CbxPaciente.Name = "CbxPaciente";
+            this.CbxPaciente.Size = new System.Drawing.Size(328, 23);
+            this.CbxPaciente.TabIndex = 24;
+            // 
+            // CbxMedico
+            // 
+            this.CbxMedico.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CbxMedico.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CbxMedico.FormattingEnabled = true;
+            this.CbxMedico.Items.AddRange(new object[] {
+            "Selecione",
+            "Cardiologia - R$190,00",
+            "Geriatria - R$100,00",
+            "Ginecologia - R$90,00",
+            "Oncologia - R$380,00",
+            "Pediatria - R$80,00",
+            "Urologia - R$160,00"});
+            this.CbxMedico.Location = new System.Drawing.Point(196, 159);
+            this.CbxMedico.Margin = new System.Windows.Forms.Padding(4);
+            this.CbxMedico.Name = "CbxMedico";
+            this.CbxMedico.Size = new System.Drawing.Size(328, 23);
+            this.CbxMedico.TabIndex = 25;
+            // 
             // FrmAgendamento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -420,10 +440,8 @@
         private System.Windows.Forms.Label LblPaciente;
         private System.Windows.Forms.Label LblEspecialidadeValor;
         private System.Windows.Forms.Label LblFormaPagto;
-        private System.Windows.Forms.TextBox TbxPaciente;
         private System.Windows.Forms.TextBox TbxCodigo;
         private System.Windows.Forms.ComboBox CbxEspecialidadeValor;
-        private System.Windows.Forms.TextBox TbxMedico;
         private System.Windows.Forms.ComboBox CbxFormaPagto;
         private System.Windows.Forms.MaskedTextBox MskDataHorario;
         private System.Windows.Forms.GroupBox GbxAgendamento;
@@ -444,5 +462,7 @@
         private System.Windows.Forms.ColumnHeader ChFormaPagamento;
         private System.Windows.Forms.ColumnHeader ChCodigo;
         private System.Windows.Forms.ToolStripSeparator TssExcluir;
+        private System.Windows.Forms.ComboBox CbxMedico;
+        private System.Windows.Forms.ComboBox CbxPaciente;
     }
 }
