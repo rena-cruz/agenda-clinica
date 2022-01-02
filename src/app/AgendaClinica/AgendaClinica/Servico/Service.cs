@@ -63,7 +63,65 @@ namespace AgendaClinica.Servico
             }
         }
 
+        public void RemoverJornada(long pSeqJornada)
+        {
+            try
+            {
+                string sql = $"DELETE FROM jornadamedico WHERE seqjornada = {pSeqJornada}";
+                OperacaoBD.ExecutarComando(sql);
+                sql = $"DELETE FROM jornada WHERE seqjornada = {pSeqJornada}";
+                OperacaoBD.ExecutarComando(sql);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+        
+        public MedicoDTO CarregarMedicoJornada(string pCrm)
+        {
+            try
+            {
+                var medico = OperacaoBD.RetornarMedico(pCrm);
+                medico.Jornada = OperacaoBD.RetornaJornadaMedico(pCrm);
+                return medico;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public void SalvarMedico(MedicoDTO pMedico)
+        {
+            try
+            {
+                if (VerificaMedicoExistente(pMedico.Crm))
+                {
+                    AtualizarMedico(pMedico);
+                }
+                else
+                {
+                    IncluirMedico(pMedico);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private string RetornaStringConexao()
+        {
+            return File.ReadAllText(@"bdconfig.txt");
+        }
+
+        private bool VerificaMedicoExistente(string pCrm)
+        {
+            return OperacaoBD.ValidaCrmMedico(pCrm);
+        }
+
+        private void IncluirMedico(MedicoDTO pMedico)
         {
             try
             {
@@ -75,7 +133,42 @@ namespace AgendaClinica.Servico
                 sql.AppendLine($"VALUES('{pMedico.Nome}', '{pMedico.Crm}', '{pMedico.Email}', {seqEspecialidade}) ");
                 OperacaoBD.ExecutarComando(sql.ToString());
 
-                foreach (var item in pMedico.Jornada)
+                IncluirJornada(pMedico.Crm, pMedico.Jornada);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro ao incluir o médico.\n{ex.Message}");
+            }
+        }
+
+        private void AtualizarMedico(MedicoDTO pMedico)
+        {
+            try
+            {
+                StringBuilder sql = new StringBuilder();
+
+                var seqEspecialidade = OperacaoBD.BuscarSeqEspecialidade(pMedico.Especialidade);
+
+                sql.AppendLine($" UPDATE medico a ");
+                sql.AppendLine($" SET a.nome = '{pMedico.Nome}', a.email = '{pMedico.Email}', a.seqespecialidade = {seqEspecialidade} ");
+                sql.AppendLine($" WHERE a.crm = '{pMedico.Crm}' ");
+                OperacaoBD.ExecutarComando(sql.ToString());
+
+                IncluirJornada(pMedico.Crm, pMedico.Jornada);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro ao atualizar o médico.\n{ex.Message}");
+            }
+        }
+
+        private void IncluirJornada(string pCrm, List<MedicoJornadaDTO> pJornadas)
+        {
+            try
+            {
+                StringBuilder sql = new StringBuilder();
+
+                foreach (var item in pJornadas)
                 {
                     sql.Clear();
                     var seqDiaSemana = OperacaoBD.BuscarSeqDiaSemana(item.DiaSemana);
@@ -91,19 +184,14 @@ namespace AgendaClinica.Servico
                     var seqJornadaMedico = OperacaoBD.BuscarProximoValorSequence(Constantes.SEQUENCE_TABELA_JORNADAMEDICO);
 
                     sql.AppendLine($"INSERT INTO jornadamedico(seqjornadamedico, crm, seqjornada) ");
-                    sql.AppendLine($"VALUES({seqJornadaMedico}, {pMedico.Crm}, {seqJornada}) ");
+                    sql.AppendLine($"VALUES({seqJornadaMedico}, '{pCrm}', {seqJornada}) ");
                     OperacaoBD.ExecutarComando(sql.ToString());
-                }                
+                }
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new Exception($"Erro ao incluir a jornada do médico.\n{ex.Message}");
             }
-        }
-
-        private string RetornaStringConexao()
-        {
-            return File.ReadAllText(@"bdconfig.txt");
         }
     }
 }

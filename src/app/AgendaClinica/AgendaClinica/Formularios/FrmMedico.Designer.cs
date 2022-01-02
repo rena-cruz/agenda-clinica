@@ -28,16 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMedico));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.DgvJornada = new System.Windows.Forms.DataGridView();
-            this.DgvCBox = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.DgvDiaSemana = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DgvPeriodo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PnlBotaoCadastroMedico = new System.Windows.Forms.Panel();
             this.TsBotoesPaciente = new System.Windows.Forms.ToolStrip();
             this.TsbSalvar = new System.Windows.Forms.ToolStripButton();
@@ -64,6 +61,10 @@
             this.LblPeriodo = new System.Windows.Forms.Label();
             this.CbxDiaSemana = new System.Windows.Forms.ComboBox();
             this.LblDiaSemana = new System.Windows.Forms.Label();
+            this.DgvCBox = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.DgvDiaSemana = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DgvPeriodo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DgvSeqJornada = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DgvJornada)).BeginInit();
             this.PnlBotaoCadastroMedico.SuspendLayout();
             this.TsBotoesPaciente.SuspendLayout();
@@ -78,22 +79,23 @@
             this.DgvJornada.AllowUserToDeleteRows = false;
             this.DgvJornada.AllowUserToResizeColumns = false;
             this.DgvJornada.AllowUserToResizeRows = false;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.DgvJornada.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.DgvJornada.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.DgvJornada.CausesValidation = false;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DgvJornada.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DgvJornada.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.DgvJornada.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DgvJornada.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.DgvCBox,
             this.DgvDiaSemana,
-            this.DgvPeriodo});
+            this.DgvPeriodo,
+            this.DgvSeqJornada});
             this.DgvJornada.Location = new System.Drawing.Point(24, 84);
             this.DgvJornada.MultiSelect = false;
             this.DgvJornada.Name = "DgvJornada";
@@ -105,41 +107,6 @@
             this.DgvJornada.Size = new System.Drawing.Size(558, 168);
             this.DgvJornada.TabIndex = 7;
             this.DgvJornada.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvJornada_CellContentClick);
-            // 
-            // DgvCBox
-            // 
-            this.DgvCBox.DataPropertyName = "Check";
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.NullValue = false;
-            this.DgvCBox.DefaultCellStyle = dataGridViewCellStyle8;
-            this.DgvCBox.FalseValue = "false";
-            this.DgvCBox.HeaderText = "*";
-            this.DgvCBox.Name = "DgvCBox";
-            this.DgvCBox.TrueValue = "true";
-            this.DgvCBox.Width = 30;
-            // 
-            // DgvDiaSemana
-            // 
-            this.DgvDiaSemana.DataPropertyName = "Dia";
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DgvDiaSemana.DefaultCellStyle = dataGridViewCellStyle9;
-            this.DgvDiaSemana.HeaderText = "Dia da Semana";
-            this.DgvDiaSemana.Name = "DgvDiaSemana";
-            this.DgvDiaSemana.ReadOnly = true;
-            this.DgvDiaSemana.Width = 250;
-            // 
-            // DgvPeriodo
-            // 
-            this.DgvPeriodo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.DgvPeriodo.DataPropertyName = "Periodo";
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DgvPeriodo.DefaultCellStyle = dataGridViewCellStyle10;
-            this.DgvPeriodo.HeaderText = "Período";
-            this.DgvPeriodo.Name = "DgvPeriodo";
-            this.DgvPeriodo.ReadOnly = true;
             // 
             // PnlBotaoCadastroMedico
             // 
@@ -423,6 +390,48 @@
             this.LblDiaSemana.TabIndex = 18;
             this.LblDiaSemana.Text = "Dia da Semana";
             // 
+            // DgvCBox
+            // 
+            this.DgvCBox.DataPropertyName = "Check";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.NullValue = false;
+            this.DgvCBox.DefaultCellStyle = dataGridViewCellStyle3;
+            this.DgvCBox.FalseValue = "false";
+            this.DgvCBox.HeaderText = "*";
+            this.DgvCBox.Name = "DgvCBox";
+            this.DgvCBox.TrueValue = "true";
+            this.DgvCBox.Width = 30;
+            // 
+            // DgvDiaSemana
+            // 
+            this.DgvDiaSemana.DataPropertyName = "Dia";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DgvDiaSemana.DefaultCellStyle = dataGridViewCellStyle4;
+            this.DgvDiaSemana.HeaderText = "Dia da Semana";
+            this.DgvDiaSemana.Name = "DgvDiaSemana";
+            this.DgvDiaSemana.ReadOnly = true;
+            this.DgvDiaSemana.Width = 250;
+            // 
+            // DgvPeriodo
+            // 
+            this.DgvPeriodo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.DgvPeriodo.DataPropertyName = "Periodo";
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DgvPeriodo.DefaultCellStyle = dataGridViewCellStyle5;
+            this.DgvPeriodo.HeaderText = "Período";
+            this.DgvPeriodo.Name = "DgvPeriodo";
+            this.DgvPeriodo.ReadOnly = true;
+            // 
+            // DgvSeqJornada
+            // 
+            this.DgvSeqJornada.DataPropertyName = "SeqJornada";
+            this.DgvSeqJornada.HeaderText = "SeqJornada";
+            this.DgvSeqJornada.Name = "DgvSeqJornada";
+            this.DgvSeqJornada.Visible = false;
+            // 
             // FrmMedico
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
@@ -485,5 +494,6 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn DgvCBox;
         private System.Windows.Forms.DataGridViewTextBoxColumn DgvDiaSemana;
         private System.Windows.Forms.DataGridViewTextBoxColumn DgvPeriodo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DgvSeqJornada;
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace AgendaClinica.Repositorio.DTO
 {
@@ -24,5 +20,7 @@ namespace AgendaClinica.Repositorio.DTO
         public string DiaSemana { get; set; }
 
         public string Periodo { get; set; }
+
+        public long SeqJornada { get; set; }
     }
 }

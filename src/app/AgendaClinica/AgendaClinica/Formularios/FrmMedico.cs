@@ -23,6 +23,7 @@ namespace AgendaClinica.Formularios
             dtJornada.Columns.Add("Check", typeof(bool));
             dtJornada.Columns.Add("Dia", typeof(string));
             dtJornada.Columns.Add("Periodo", typeof(string));
+            dtJornada.Columns.Add("SeqJornada", typeof(long));
             DgvJornada.DataSource = dtJornada;
         }
 
@@ -42,82 +43,61 @@ namespace AgendaClinica.Formularios
 
         private void TsbSalvar_Click(object sender, EventArgs e)
         {
-            List<MedicoJornadaDTO> jornada = new List<MedicoJornadaDTO>();
-            foreach (DataGridViewRow linha in DgvJornada.Rows)
-            {
-                jornada.Add(new MedicoJornadaDTO()
-                {
-                     DiaSemana = linha.Cells[1].Value.ToString(),
-                     Periodo = linha.Cells[2].Value.ToString()
-                });
+            try
+            {      
+                servico.SalvarMedico(CarregaMedicoDto());
+                MessageBox.Show($"O registro foi salvo");
             }
-
-            MedicoDTO medico = new MedicoDTO() 
+            catch (Exception ex)
             {
-                 Nome = TbxNome.Text,
-                 Email = TbxEmail.Text,
-                 Crm = TbxCRM.Text,
-                 Especialidade = CbxEspecialidade.Text,
-                 Jornada = jornada
-            };
-
-            servico.SalvarMedico(medico);
-
-            MessageBox.Show($"O registro foi salvo");
+                MessageBox.Show($"Erro ao salvar o registro.\n{ex.Message}");
+            }
         }
 
         private void TsbPesquisar_Click(object sender, EventArgs e)
         {
-            List<MedicoJornadaDTO> jornada = new List<MedicoJornadaDTO>();                
-            jornada.Add(new MedicoJornadaDTO()
+            try
             {
-                DiaSemana = "Segunda",
-                Periodo = "Manhã"
-            });
-
-            MedicoDTO medico = new MedicoDTO()
-            {
-                Nome = "Renata",
-                Email = "fff@gmail",
-                Crm = "123",
-                Especialidade = "Ginecologista",
-                Jornada = jornada
-            };
-            
-            if (string.IsNullOrWhiteSpace(TbxCRM.Text))
-            {
-                MessageBox.Show("Informe o numero do CRM");
-                return;
-            }
-
-            if (!string.IsNullOrWhiteSpace(TbxNome.Text) || !string.IsNullOrWhiteSpace(TbxEmail.Text) || 
-                !CbxEspecialidade.Text.Equals("Selecione") || dtJornada.Rows.Count > 0)
-            {
-                MessageBox.Show("Limpe a tela e informe o CRM");
-                return;
-            }
-
-
-
-            if (TbxCRM.Text.Equals(medico.Crm))
-            {
-                TbxNome.Text = medico.Nome;
-                TbxEmail.Text = medico.Email;
-                TbxCRM.Text = medico.Crm;
-                CbxEspecialidade.SelectedItem = medico.Especialidade;
-
-                foreach (MedicoJornadaDTO item in medico.Jornada)
+                if (string.IsNullOrWhiteSpace(TbxCRM.Text))
                 {
-                    DataRow dr = dtJornada.NewRow();
-                    dr["Check"] = false;
-                    dr["Dia"] = item.DiaSemana;
-                    dr["Periodo"] = item.Periodo;
-                    dtJornada.Rows.Add(dr);
+                    MessageBox.Show("Informe o numero do CRM");
+                    return;
+                }
+
+                if (!string.IsNullOrWhiteSpace(TbxNome.Text) || !string.IsNullOrWhiteSpace(TbxEmail.Text) ||
+                    !CbxEspecialidade.Text.Equals("Selecione") || dtJornada.Rows.Count > 0)
+                {
+                    MessageBox.Show("Limpe a tela e informe o CRM");
+                    return;
+                }
+
+                var medico = servico.CarregarMedicoJornada(TbxCRM.Text);
+
+                if (TbxCRM.Text.Equals(medico.Crm))
+                {
+                    TbxNome.Text = medico.Nome;
+                    TbxEmail.Text = medico.Email;
+                    TbxCRM.Text = medico.Crm;
+                    CbxEspecialidade.SelectedItem = medico.Especialidade;
+
+                    foreach (MedicoJornadaDTO item in medico.Jornada)
+                    {
+                        DataRow dr = dtJornada.NewRow();
+                        dr["Check"] = false;
+                        dr["Dia"] = item.DiaSemana;
+                        dr["Periodo"] = item.Periodo;
+                        dr["SeqJornada"] = item.SeqJornada;
+                        dtJornada.Rows.Add(dr);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("O CRM informado não existe");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("O CRM informado não existe");
+                MessageBox.Show($"Erro ao buscar os dados do banco.\n{ex.Message}");
             }
         }
 
@@ -151,6 +131,7 @@ namespace AgendaClinica.Formularios
             dr["Check"] = false;
             dr["Dia"] = CbxDiaSemana.Text;
             dr["Periodo"] = CbxPeriodo.Text;
+            dr["SeqJornada"] = 0L;
             dtJornada.Rows.Add(dr);
         }
 
@@ -163,23 +144,34 @@ namespace AgendaClinica.Formularios
                 return;
             }
 
-            do
+            try
             {
-                indice = -1;
-                for (int i = 0; i < DgvJornada.Rows.Count; i++)
+                do
                 {
-                    if ((bool)DgvJornada.Rows[i].Cells[0].Value)
+                    indice = -1;
+                    for (int i = 0; i < DgvJornada.Rows.Count; i++)
                     {
-                        indice = i;
-                        break;
+                        if ((bool)DgvJornada.Rows[i].Cells[0].Value)
+                        {
+                            indice = i;
+                            break;
+                        }
                     }
-                }
 
-                if (indice > -1) 
-                {
-                    dtJornada.Rows.RemoveAt(indice);
-                }
-            } while (indice > -1);
+                    if (indice > -1)
+                    {
+                        if ((long)DgvJornada.Rows[indice].Cells["DgvSeqJornada"].Value > 0L)
+                        {
+                            servico.RemoverJornada((long)DgvJornada.Rows[indice].Cells["DgvSeqJornada"].Value);
+                        }
+                        dtJornada.Rows.RemoveAt(indice);
+                    }
+                } while (indice > -1);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Não foi possivel excluir a jornada.\n{ex.Message}");
+            }
         }
 
         private void FrmMedico_Shown(object sender, EventArgs e)
@@ -193,6 +185,33 @@ namespace AgendaClinica.Formularios
             {
                 DgvJornada.EndEdit();
             }
+        }
+
+        private MedicoDTO CarregaMedicoDto()
+        {
+            List<MedicoJornadaDTO> jornada = new List<MedicoJornadaDTO>();
+            foreach (DataGridViewRow linha in DgvJornada.Rows)
+            {
+                if ((long)linha.Cells["DgvSeqJornada"].Value == 0L)
+                {
+                    jornada.Add(new MedicoJornadaDTO()
+                    {
+                        DiaSemana = linha.Cells[1].Value.ToString(),
+                        Periodo = linha.Cells[2].Value.ToString()
+                    });
+                }
+            }
+
+            MedicoDTO medico = new MedicoDTO()
+            {
+                Nome = TbxNome.Text,
+                Email = TbxEmail.Text,
+                Crm = TbxCRM.Text,
+                Especialidade = CbxEspecialidade.Text,
+                Jornada = jornada
+            };
+
+            return medico;
         }
     }
 }
