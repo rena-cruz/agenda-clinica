@@ -44,7 +44,12 @@ namespace AgendaClinica.Formularios
         private void TsbSalvar_Click(object sender, EventArgs e)
         {
             try
-            {      
+            {
+                if (CbxEspecialidade.Text.Equals("Selecione"))
+                {
+                    MessageBox.Show("Selecione a especialidade antes de salvar");
+                    return;
+                }
                 servico.SalvarMedico(CarregaMedicoDto());
                 MessageBox.Show($"O registro foi salvo");
             }

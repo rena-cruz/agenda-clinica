@@ -4,6 +4,7 @@ using AgendaClinica.Repositorio;
 using AgendaClinica.Repositorio.DTO;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Text;
 
@@ -20,6 +21,13 @@ namespace AgendaClinica.Servico
         {
             return OperacaoBD.ExisteUsuario(pDadosLogin);
         }
+
+        private string RetornaStringConexao()
+        {
+            return File.ReadAllText(@"bdconfig.txt");
+        }
+
+        #region ComboBox
 
         public List<string> BuscarEspecialidade()
         {
@@ -62,6 +70,24 @@ namespace AgendaClinica.Servico
                 throw ex;
             }
         }
+
+        public List<string> BuscarSituacaoFinanceira()
+        {
+            try
+            {
+                var situacaoFinanceira = OperacaoBD.BuscarSituacaoFinanceira();
+                situacaoFinanceira.Insert(0, "Selecione");
+                return situacaoFinanceira;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        #endregion
+
+        #region Medico
 
         public void RemoverJornada(long pSeqJornada)
         {
@@ -109,11 +135,6 @@ namespace AgendaClinica.Servico
             {
                 throw ex;
             }
-        }
-
-        private string RetornaStringConexao()
-        {
-            return File.ReadAllText(@"bdconfig.txt");
         }
 
         private bool VerificaMedicoExistente(string pCrm)
@@ -193,5 +214,88 @@ namespace AgendaClinica.Servico
                 throw new Exception($"Erro ao incluir a jornada do médico.\n{ex.Message}");
             }
         }
+
+        #endregion
+
+        #region Paciente
+
+        public void SalvarPaciente(PacienteDTO pPaciente)
+        {
+            try
+            {
+                if (pPaciente.Codigo > 0L && VerificaPacienteExistente(pPaciente.Codigo))
+                {
+                    AtualizarPaciente(pPaciente);
+                }
+                else
+                {
+                    IncluirPaciente(pPaciente);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public PacienteDTO CarregarPaciente(long pCodigo)
+        {
+            try
+            {
+                var paciente = OperacaoBD.RetornarPaciente(pCodigo);
+                return paciente;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private bool VerificaPacienteExistente(long pCodigo)
+        {
+            return OperacaoBD.ValidaCodigoPaciente(pCodigo);
+        }
+
+        private void AtualizarPaciente(PacienteDTO pPaciente)
+        {
+            try
+            {
+                StringBuilder sql = new StringBuilder();
+
+                var seqFinanceiro = OperacaoBD.BuscarSeqFinanceiro(pPaciente.SituacaoFinanceira);
+
+                sql.AppendLine($" UPDATE paciente a ");
+                sql.AppendLine($" SET a.nome = '{pPaciente.Nome}', a.email = '{pPaciente.Email}', a.dtanascimento = '{pPaciente.DataNascimento.ToString("dd-MMM-yyyy", CultureInfo.InvariantCulture)}', ");
+                sql.AppendLine($" a.telefone = {pPaciente.Celular}, a.seqfinanceiro = {seqFinanceiro} ");
+                sql.AppendLine($" WHERE a.seqpaciente = {pPaciente.Codigo} ");
+                OperacaoBD.ExecutarComando(sql.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro ao atualizar o paciente.\n{ex.Message}");
+            }
+        }
+
+        private void IncluirPaciente(PacienteDTO pPaciente)
+        {
+            try
+            {
+                StringBuilder sql = new StringBuilder();
+
+                var seqPaciente = OperacaoBD.BuscarProximoValorSequence(Constantes.SEQUENCE_TABELA_PACIENTE);
+                var seqFinanceiro = OperacaoBD.BuscarSeqFinanceiro(pPaciente.SituacaoFinanceira);
+
+                sql.AppendLine($"INSERT INTO paciente(seqpaciente, nome, email, dtanascimento, telefone, seqfinanceiro) ");
+                sql.AppendLine($"VALUES({seqPaciente}, '{pPaciente.Nome}', '{pPaciente.Email}', ");
+                sql.AppendLine($" '{pPaciente.DataNascimento.ToString("dd-MMM-yyyy", CultureInfo.InvariantCulture)}', {pPaciente.Celular}, {seqFinanceiro}) ");
+                OperacaoBD.ExecutarComando(sql.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro ao incluir o paciente.\n{ex.Message}");
+            }
+        }
+
+        #endregion
     }
 }

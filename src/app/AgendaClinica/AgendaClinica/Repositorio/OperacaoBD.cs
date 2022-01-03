@@ -129,6 +129,37 @@ namespace AgendaClinica.Repositorio
             }
         }
 
+        public static List<string> BuscarSituacaoFinanceira()
+        {
+            try
+            {
+                List<string> listaSituacaoFinanceira = new List<string>();
+
+                StringBuilder sql = new StringBuilder();
+                sql.Append($" SELECT a.indfinanceiro FROM situacaofinanceira a ORDER BY a.seqfinanceiro ");
+
+                OracleCommand comando = new OracleCommand();
+                comando.Connection = ConexaoBD.AbrirConexao(stringConexao);
+                comando.CommandText = sql.ToString();
+                OracleDataReader reader = comando.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    listaSituacaoFinanceira.Add(reader.GetString(0));
+                }
+
+                reader.Dispose();
+                ConexaoBD.FecharConexao();
+
+                return listaSituacaoFinanceira;
+            }
+            catch (Exception ex)
+            {
+                ConexaoBD.FecharConexao();
+                throw ex;
+            }
+        }
+
         public static MedicoDTO RetornarMedico(string pCrm)
         {
             try
@@ -159,6 +190,46 @@ namespace AgendaClinica.Repositorio
                 ConexaoBD.FecharConexao();
 
                 return medico;
+            }
+            catch (Exception ex)
+            {
+                ConexaoBD.FecharConexao();
+                throw ex;
+            }
+        }
+
+        public static PacienteDTO RetornarPaciente(long pCodigo)
+        {
+            try
+            {
+                PacienteDTO paciente = new PacienteDTO();
+
+                StringBuilder sql = new StringBuilder();
+                sql.Append($" SELECT a.seqpaciente, a.nome, a.email, a.dtanascimento, a.telefone, b.indfinanceiro ");
+                sql.Append($" FROM paciente a, situacaofinanceira b ");
+                sql.Append($" WHERE a.seqpaciente = :seqpaciente ");
+                sql.Append($" AND b.seqfinanceiro = a.seqfinanceiro ");
+
+                OracleCommand comando = new OracleCommand();
+                comando.Connection = ConexaoBD.AbrirConexao(stringConexao);
+                comando.CommandText = sql.ToString();
+                comando.Parameters.Add(":seqpaciente", OracleDbType.Long).Value = pCodigo;
+                OracleDataReader reader = comando.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    paciente.Codigo = reader.GetInt64(0);
+                    paciente.Nome = reader.GetString(1);
+                    paciente.Email = reader.GetString(2);
+                    paciente.DataNascimento = reader.GetDateTime(3);
+                    paciente.Celular = reader.GetString(4);
+                    paciente.SituacaoFinanceira = reader.GetString(5);
+                }
+
+                reader.Dispose();
+                ConexaoBD.FecharConexao();
+
+                return paciente;
             }
             catch (Exception ex)
             {
@@ -298,6 +369,54 @@ namespace AgendaClinica.Repositorio
                 ConexaoBD.FecharConexao();
 
                 return int.Parse(existe.ToString()) == 1;
+            }
+            catch (Exception ex)
+            {
+                ConexaoBD.FecharConexao();
+                throw ex;
+            }
+        }
+
+        public static bool ValidaCodigoPaciente(long pCodigo)
+        {
+            try
+            {
+                StringBuilder sql = new StringBuilder();
+                sql.Append($" SELECT COUNT(1) FROM paciente a WHERE a.seqpaciente = :seqpaciente");
+
+                OracleCommand comando = new OracleCommand();
+                comando.Connection = ConexaoBD.AbrirConexao(stringConexao);
+                comando.CommandText = sql.ToString();
+                comando.Parameters.Add(":seqpaciente", OracleDbType.Varchar2).Value = pCodigo;
+                var existe = comando.ExecuteScalar();
+
+                ConexaoBD.FecharConexao();
+
+                return int.Parse(existe.ToString()) == 1;
+            }
+            catch (Exception ex)
+            {
+                ConexaoBD.FecharConexao();
+                throw ex;
+            }
+        }
+
+        public static long BuscarSeqFinanceiro(string pFinanceiro)
+        {
+            try
+            {
+                StringBuilder sql = new StringBuilder();
+                sql.Append($" SELECT a.seqfinanceiro FROM situacaofinanceira a WHERE a.indfinanceiro = :indfinanceiro ");
+
+                OracleCommand comando = new OracleCommand();
+                comando.Connection = ConexaoBD.AbrirConexao(stringConexao);
+                comando.CommandText = sql.ToString();
+                comando.Parameters.Add(":indfinanceiro", OracleDbType.Varchar2).Value = pFinanceiro;
+                var sequence = comando.ExecuteScalar();
+
+                ConexaoBD.FecharConexao();
+
+                return long.Parse(sequence.ToString());
             }
             catch (Exception ex)
             {

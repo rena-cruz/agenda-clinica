@@ -8,7 +8,7 @@ namespace AgendaClinica.Repositorio.DTO
 {
     internal class PacienteDTO
     {
-        public string Codigo { get; set; }
+        public long Codigo { get; set; }
 
         public string Nome { get; set; }
 
@@ -19,5 +19,6 @@ namespace AgendaClinica.Repositorio.DTO
         public string Celular { get; set; }
 
         public string SituacaoFinanceira { get; set; }
+
     }
 }
