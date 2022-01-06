@@ -7,5 +7,7 @@
         public const string SEQUENCE_TABELA_JORNADAMEDICO = "S_JornadaMedico";
 
         public const string SEQUENCE_TABELA_PACIENTE = "S_Paciente";
+
+        public const string SEQUENCE_TABELA_AGENDAMENTO = "S_Agendamento";
     }
 }

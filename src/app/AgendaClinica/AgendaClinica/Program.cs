@@ -14,7 +14,7 @@ namespace AgendaClinica
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmPaciente());
+            Application.Run(new FrmAgendamento());
         }
     }
 }

@@ -36,6 +36,78 @@ namespace AgendaClinica.Repositorio
             }
         }
 
+        public static bool ValidaCrmMedico(string pCrm)
+        {
+            try
+            {
+                StringBuilder sql = new StringBuilder();
+                sql.Append($" SELECT COUNT(1) FROM medico a WHERE a.crm = :crm ");
+
+                OracleCommand comando = new OracleCommand();
+                comando.Connection = ConexaoBD.AbrirConexao(stringConexao);
+                comando.CommandText = sql.ToString();
+                comando.Parameters.Add(":crm", OracleDbType.Varchar2).Value = pCrm;
+                var existe = comando.ExecuteScalar();
+
+                ConexaoBD.FecharConexao();
+
+                return int.Parse(existe.ToString()) == 1;
+            }
+            catch (Exception ex)
+            {
+                ConexaoBD.FecharConexao();
+                throw ex;
+            }
+        }
+
+        public static bool ValidaCodigoPaciente(long pCodigo)
+        {
+            try
+            {
+                StringBuilder sql = new StringBuilder();
+                sql.Append($" SELECT COUNT(1) FROM paciente a WHERE a.seqpaciente = :seqpaciente");
+
+                OracleCommand comando = new OracleCommand();
+                comando.Connection = ConexaoBD.AbrirConexao(stringConexao);
+                comando.CommandText = sql.ToString();
+                comando.Parameters.Add(":seqpaciente", OracleDbType.Int64).Value = pCodigo;
+                var existe = comando.ExecuteScalar();
+
+                ConexaoBD.FecharConexao();
+
+                return int.Parse(existe.ToString()) == 1;
+            }
+            catch (Exception ex)
+            {
+                ConexaoBD.FecharConexao();
+                throw ex;
+            }
+        }
+
+        public static bool ValidaCodigoAgendamento(long pCodigo)
+        {
+            try
+            {
+                StringBuilder sql = new StringBuilder();
+                sql.Append($" SELECT COUNT(1) FROM agendamento a WHERE a.seqagendamento = :seqagendamento");
+
+                OracleCommand comando = new OracleCommand();
+                comando.Connection = ConexaoBD.AbrirConexao(stringConexao);
+                comando.CommandText = sql.ToString();
+                comando.Parameters.Add(":seqagendamento", OracleDbType.Int64).Value = pCodigo;
+                var existe = comando.ExecuteScalar();
+
+                ConexaoBD.FecharConexao();
+
+                return int.Parse(existe.ToString()) == 1;
+            }
+            catch (Exception ex)
+            {
+                ConexaoBD.FecharConexao();
+                throw ex;
+            }
+        }
+
         public static List<string> BuscarEspecialidade()
         {
             try
@@ -160,36 +232,29 @@ namespace AgendaClinica.Repositorio
             }
         }
 
-        public static MedicoDTO RetornarMedico(string pCrm)
+        public static List<string> BuscarPaciente()
         {
             try
             {
-                MedicoDTO medico = new MedicoDTO();
+                List<string> listaPaciente = new List<string>();
 
                 StringBuilder sql = new StringBuilder();
-                sql.Append($" SELECT a.nome, a.email, a.crm, b.especialidade ");
-                sql.Append($" FROM medico a, especialidademedico b ");
-                sql.Append($" WHERE a.crm = :crm ");
-                sql.Append($" AND b.seqespecialidade = a.seqespecialidade ");
+                sql.Append($" SELECT a.nome FROM paciente a ORDER BY a.seqpaciente ");
 
                 OracleCommand comando = new OracleCommand();
                 comando.Connection = ConexaoBD.AbrirConexao(stringConexao);
                 comando.CommandText = sql.ToString();
-                comando.Parameters.Add(":crm", OracleDbType.Varchar2).Value = pCrm;
                 OracleDataReader reader = comando.ExecuteReader();
 
                 while (reader.Read())
                 {
-                    medico.Nome = reader.GetString(0);
-                    medico.Email = reader.GetString(1);
-                    medico.Crm = reader.GetString(2);
-                    medico.Especialidade = reader.GetString(3);
+                    listaPaciente.Add(reader.GetString(0));
                 }
 
                 reader.Dispose();
                 ConexaoBD.FecharConexao();
 
-                return medico;
+                return listaPaciente;
             }
             catch (Exception ex)
             {
@@ -198,38 +263,96 @@ namespace AgendaClinica.Repositorio
             }
         }
 
-        public static PacienteDTO RetornarPaciente(long pCodigo)
+        public static List<string> BuscarMedico(string pEspecialidade)
         {
             try
             {
-                PacienteDTO paciente = new PacienteDTO();
+                List<string> listaMedico = new List<string>();
 
                 StringBuilder sql = new StringBuilder();
-                sql.Append($" SELECT a.seqpaciente, a.nome, a.email, a.dtanascimento, a.telefone, b.indfinanceiro ");
-                sql.Append($" FROM paciente a, situacaofinanceira b ");
-                sql.Append($" WHERE a.seqpaciente = :seqpaciente ");
-                sql.Append($" AND b.seqfinanceiro = a.seqfinanceiro ");
+                sql.Append($" SELECT a.nome ");
+                sql.Append($" FROM medico a, especialidademedico b ");
+                sql.Append($" WHERE a.seqespecialidade = b.seqespecialidade ");
+                sql.Append($" AND b.especialidade = :especialidade ");
+                sql.Append($" ORDER BY a.nome ");
 
                 OracleCommand comando = new OracleCommand();
                 comando.Connection = ConexaoBD.AbrirConexao(stringConexao);
                 comando.CommandText = sql.ToString();
-                comando.Parameters.Add(":seqpaciente", OracleDbType.Long).Value = pCodigo;
+                comando.Parameters.Add(":especialidade", OracleDbType.Varchar2).Value = pEspecialidade;
                 OracleDataReader reader = comando.ExecuteReader();
 
                 while (reader.Read())
                 {
-                    paciente.Codigo = reader.GetInt64(0);
-                    paciente.Nome = reader.GetString(1);
-                    paciente.Email = reader.GetString(2);
-                    paciente.DataNascimento = reader.GetDateTime(3);
-                    paciente.Celular = reader.GetString(4);
-                    paciente.SituacaoFinanceira = reader.GetString(5);
+                    listaMedico.Add(reader.GetString(0));
                 }
 
                 reader.Dispose();
                 ConexaoBD.FecharConexao();
 
-                return paciente;
+                return listaMedico;
+            }
+            catch (Exception ex)
+            {
+                ConexaoBD.FecharConexao();
+                throw ex;
+            }
+        }
+
+        public static List<string> BuscarEspecialidadeValor()
+        {
+            try
+            {
+                List<string> listaEspecialidadeValor = new List<string>();
+
+                StringBuilder sql = new StringBuilder();
+                sql.Append($" SELECT a.especialidade || ' - ' || a.vlrpadraoconsulta FROM especialidademedico a ORDER BY a.seqespecialidade ");
+
+                OracleCommand comando = new OracleCommand();
+                comando.Connection = ConexaoBD.AbrirConexao(stringConexao);
+                comando.CommandText = sql.ToString();
+                OracleDataReader reader = comando.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    listaEspecialidadeValor.Add(reader.GetString(0));
+                }
+
+                reader.Dispose();
+                ConexaoBD.FecharConexao();
+
+                return listaEspecialidadeValor;
+            }
+            catch (Exception ex)
+            {
+                ConexaoBD.FecharConexao();
+                throw ex;
+            }
+        }
+
+        public static List<string> BuscarFormaPagamento()
+        {
+            try
+            {
+                List<string> listaFormaPagamento = new List<string>();
+
+                StringBuilder sql = new StringBuilder();
+                sql.Append($" SELECT a.formapagto FROM formapagto a ORDER BY a.formapagto ");
+
+                OracleCommand comando = new OracleCommand();
+                comando.Connection = ConexaoBD.AbrirConexao(stringConexao);
+                comando.CommandText = sql.ToString();
+                OracleDataReader reader = comando.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    listaFormaPagamento.Add(reader.GetString(0));
+                }
+
+                reader.Dispose();
+                ConexaoBD.FecharConexao();
+
+                return listaFormaPagamento;
             }
             catch (Exception ex)
             {
@@ -273,6 +396,251 @@ namespace AgendaClinica.Repositorio
                 ConexaoBD.FecharConexao();
 
                 return listaJornada;
+            }
+            catch (Exception ex)
+            {
+                ConexaoBD.FecharConexao();
+                throw ex;
+            }
+        }
+
+        public static List<AgendamentoDTO> RetornaAgendamento()
+        {
+            try
+            {
+                List<AgendamentoDTO> listaAgendamento = new List<AgendamentoDTO>();
+
+                StringBuilder sql = new StringBuilder();
+                sql.Append($" SELECT a.seqagendamento, a.dtahoragendamento, b.nome, c.nome, d.formapagto, e.especialidade || ' - ' || a.vlragendamento ");
+                sql.Append($" FROM agendamento a, medico b, paciente c, formapagto d, especialidademedico e ");
+                sql.Append($" WHERE a.crm = b.crm ");
+                sql.Append($" AND a.seqpaciente = c.seqpaciente ");
+                sql.Append($" AND a.seqformapagto = d.seqformapagto ");
+                sql.Append($" AND b.seqespecialidade = e.seqespecialidade ");
+                sql.Append($" ORDER BY a.dtahoragendamento desc ");
+
+                OracleCommand comando = new OracleCommand();
+                comando.Connection = ConexaoBD.AbrirConexao(stringConexao);
+                comando.CommandText = sql.ToString();
+                OracleDataReader reader = comando.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    listaAgendamento.Add(new AgendamentoDTO()
+                    {
+                        Codigo = reader.GetInt64(0),
+                        DataHorario = reader.GetDateTime(1),
+                        Paciente = reader.GetString(3),
+                        EspecialidadeValor = reader.GetString(5),
+                        Medico = reader.GetString(2),
+                        FormaPagamento = reader.GetString(4)
+                    });
+                }
+
+                reader.Dispose();
+                ConexaoBD.FecharConexao();
+
+                return listaAgendamento;
+            }
+            catch (Exception ex)
+            {
+                ConexaoBD.FecharConexao();
+                throw ex;
+            }
+        }
+
+        public static AgendamentoDTO RetornaAgendamento(long pSeqAgendamento)
+        {
+            try
+            {
+                AgendamentoDTO agendamento = new AgendamentoDTO();
+
+                StringBuilder sql = new StringBuilder();
+                sql.Append($" SELECT a.seqagendamento, a.dtahoragendamento, b.nome, c.nome, d.formapagto, e.especialidade || ' - ' || a.vlragendamento ");
+                sql.Append($" FROM agendamento a, medico b, paciente c, formapagto d, especialidademedico e ");
+                sql.Append($" WHERE a.crm = b.crm ");
+                sql.Append($" AND a.seqpaciente = c.seqpaciente ");
+                sql.Append($" AND a.seqformapagto = d.seqformapagto ");
+                sql.Append($" AND b.seqespecialidade = e.seqespecialidade ");
+                sql.Append($" AND a.seqagendamento = :seqagendamento ");
+                sql.Append($" ORDER BY a.dtahoragendamento desc ");
+
+                OracleCommand comando = new OracleCommand();
+                comando.Connection = ConexaoBD.AbrirConexao(stringConexao);
+                comando.CommandText = sql.ToString();
+                comando.Parameters.Add(":seqagendamento", OracleDbType.Int64).Value = pSeqAgendamento;
+                OracleDataReader reader = comando.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    agendamento.Codigo = reader.GetInt64(0);
+                    agendamento.DataHorario = reader.GetDateTime(1);
+                    agendamento.Paciente = reader.GetString(3);
+                    agendamento.EspecialidadeValor = reader.GetString(5);
+                    agendamento.Medico = reader.GetString(2);
+                    agendamento.FormaPagamento = reader.GetString(4);                    
+                }
+
+                reader.Dispose();
+                ConexaoBD.FecharConexao();
+
+                return agendamento;
+            }
+            catch (Exception ex)
+            {
+                ConexaoBD.FecharConexao();
+                throw ex;
+            }
+        }
+
+        public static MedicoDTO RetornarMedico(string pCrm)
+        {
+            try
+            {
+                MedicoDTO medico = new MedicoDTO();
+
+                StringBuilder sql = new StringBuilder();
+                sql.Append($" SELECT a.nome, a.email, a.crm, b.especialidade ");
+                sql.Append($" FROM medico a, especialidademedico b ");
+                sql.Append($" WHERE a.crm = :crm ");
+                sql.Append($" AND b.seqespecialidade = a.seqespecialidade ");
+
+                OracleCommand comando = new OracleCommand();
+                comando.Connection = ConexaoBD.AbrirConexao(stringConexao);
+                comando.CommandText = sql.ToString();
+                comando.Parameters.Add(":crm", OracleDbType.Varchar2).Value = pCrm;
+                OracleDataReader reader = comando.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    medico.Nome = reader.GetString(0);
+                    medico.Email = reader.GetString(1);
+                    medico.Crm = reader.GetString(2);
+                    medico.Especialidade = reader.GetString(3);
+                }
+
+                reader.Dispose();
+                ConexaoBD.FecharConexao();
+
+                return medico;
+            }
+            catch (Exception ex)
+            {
+                ConexaoBD.FecharConexao();
+                throw ex;
+            }
+        }
+
+        public static MedicoDTO RetornaMedicoPorNome(string pNome)
+        {
+            try
+            {
+                MedicoDTO medico = new MedicoDTO();
+
+                StringBuilder sql = new StringBuilder();
+                sql.Append($" SELECT a.nome, a.email, a.crm, b.especialidade ");
+                sql.Append($" FROM medico a, especialidademedico b ");
+                sql.Append($" WHERE a.nome = :nome ");
+                sql.Append($" AND b.seqespecialidade = a.seqespecialidade ");
+
+                OracleCommand comando = new OracleCommand();
+                comando.Connection = ConexaoBD.AbrirConexao(stringConexao);
+                comando.CommandText = sql.ToString();
+                comando.Parameters.Add(":nome", OracleDbType.Varchar2).Value = pNome;
+                OracleDataReader reader = comando.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    medico.Nome = reader.GetString(0);
+                    medico.Email = reader.GetString(1);
+                    medico.Crm = reader.GetString(2);
+                    medico.Especialidade = reader.GetString(3);
+                }
+
+                reader.Dispose();
+                ConexaoBD.FecharConexao();
+
+                return medico;
+            }
+            catch (Exception ex)
+            {
+                ConexaoBD.FecharConexao();
+                throw ex;
+            }
+        }
+
+        public static PacienteDTO RetornaPacientePorNome(string pNome)
+        {
+            try
+            {
+                PacienteDTO paciente = new PacienteDTO();
+
+                StringBuilder sql = new StringBuilder();
+                sql.Append($" SELECT a.seqpaciente, a.nome, a.email, a.dtanascimento, a.telefone, b.indfinanceiro ");
+                sql.Append($" FROM paciente a, situacaofinanceira b ");
+                sql.Append($" WHERE a.nome = :nome ");
+                sql.Append($" AND b.seqfinanceiro = a.seqfinanceiro ");
+
+                OracleCommand comando = new OracleCommand();
+                comando.Connection = ConexaoBD.AbrirConexao(stringConexao);
+                comando.CommandText = sql.ToString();
+                comando.Parameters.Add(":nome", OracleDbType.Varchar2).Value = pNome;
+                OracleDataReader reader = comando.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    paciente.Codigo = reader.GetInt64(0);
+                    paciente.Nome = reader.GetString(1);
+                    paciente.Email = reader.GetString(2);
+                    paciente.DataNascimento = reader.GetDateTime(3);
+                    paciente.Celular = reader.GetString(4);
+                    paciente.SituacaoFinanceira = reader.GetString(5);
+                }
+
+                reader.Dispose();
+                ConexaoBD.FecharConexao();
+
+                return paciente;
+            }
+            catch (Exception ex)
+            {
+                ConexaoBD.FecharConexao();
+                throw ex;
+            }
+        }
+
+        public static PacienteDTO RetornarPaciente(long pCodigo)
+        {
+            try
+            {
+                PacienteDTO paciente = new PacienteDTO();
+
+                StringBuilder sql = new StringBuilder();
+                sql.Append($" SELECT a.seqpaciente, a.nome, a.email, a.dtanascimento, a.telefone, b.indfinanceiro ");
+                sql.Append($" FROM paciente a, situacaofinanceira b ");
+                sql.Append($" WHERE a.seqpaciente = :seqpaciente ");
+                sql.Append($" AND b.seqfinanceiro = a.seqfinanceiro ");
+
+                OracleCommand comando = new OracleCommand();
+                comando.Connection = ConexaoBD.AbrirConexao(stringConexao);
+                comando.CommandText = sql.ToString();
+                comando.Parameters.Add(":seqpaciente", OracleDbType.Long).Value = pCodigo;
+                OracleDataReader reader = comando.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    paciente.Codigo = reader.GetInt64(0);
+                    paciente.Nome = reader.GetString(1);
+                    paciente.Email = reader.GetString(2);
+                    paciente.DataNascimento = reader.GetDateTime(3);
+                    paciente.Celular = reader.GetString(4);
+                    paciente.SituacaoFinanceira = reader.GetString(5);
+                }
+
+                reader.Dispose();
+                ConexaoBD.FecharConexao();
+
+                return paciente;
             }
             catch (Exception ex)
             {
@@ -353,54 +721,6 @@ namespace AgendaClinica.Repositorio
             }
         }
 
-        public static bool ValidaCrmMedico(string pCrm)
-        {
-            try
-            {
-                StringBuilder sql = new StringBuilder();
-                sql.Append($" SELECT COUNT(1) FROM medico a WHERE a.crm = :crm ");
-
-                OracleCommand comando = new OracleCommand();
-                comando.Connection = ConexaoBD.AbrirConexao(stringConexao);
-                comando.CommandText = sql.ToString();
-                comando.Parameters.Add(":crm", OracleDbType.Varchar2).Value = pCrm;
-                var existe = comando.ExecuteScalar();
-
-                ConexaoBD.FecharConexao();
-
-                return int.Parse(existe.ToString()) == 1;
-            }
-            catch (Exception ex)
-            {
-                ConexaoBD.FecharConexao();
-                throw ex;
-            }
-        }
-
-        public static bool ValidaCodigoPaciente(long pCodigo)
-        {
-            try
-            {
-                StringBuilder sql = new StringBuilder();
-                sql.Append($" SELECT COUNT(1) FROM paciente a WHERE a.seqpaciente = :seqpaciente");
-
-                OracleCommand comando = new OracleCommand();
-                comando.Connection = ConexaoBD.AbrirConexao(stringConexao);
-                comando.CommandText = sql.ToString();
-                comando.Parameters.Add(":seqpaciente", OracleDbType.Varchar2).Value = pCodigo;
-                var existe = comando.ExecuteScalar();
-
-                ConexaoBD.FecharConexao();
-
-                return int.Parse(existe.ToString()) == 1;
-            }
-            catch (Exception ex)
-            {
-                ConexaoBD.FecharConexao();
-                throw ex;
-            }
-        }
-
         public static long BuscarSeqFinanceiro(string pFinanceiro)
         {
             try
@@ -412,6 +732,30 @@ namespace AgendaClinica.Repositorio
                 comando.Connection = ConexaoBD.AbrirConexao(stringConexao);
                 comando.CommandText = sql.ToString();
                 comando.Parameters.Add(":indfinanceiro", OracleDbType.Varchar2).Value = pFinanceiro;
+                var sequence = comando.ExecuteScalar();
+
+                ConexaoBD.FecharConexao();
+
+                return long.Parse(sequence.ToString());
+            }
+            catch (Exception ex)
+            {
+                ConexaoBD.FecharConexao();
+                throw ex;
+            }
+        }
+
+        public static long BuscarSeqFormaPagamento(string pFormaPagamento)
+        {
+            try
+            {
+                StringBuilder sql = new StringBuilder();
+                sql.Append($" SELECT a.seqformapagto FROM formapagto a WHERE a.formapagto = :formapagto ");
+
+                OracleCommand comando = new OracleCommand();
+                comando.Connection = ConexaoBD.AbrirConexao(stringConexao);
+                comando.CommandText = sql.ToString();
+                comando.Parameters.Add(":formapagto", OracleDbType.Varchar2).Value = pFormaPagamento;
                 var sequence = comando.ExecuteScalar();
 
                 ConexaoBD.FecharConexao();

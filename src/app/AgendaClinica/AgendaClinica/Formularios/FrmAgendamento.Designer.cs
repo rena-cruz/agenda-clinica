@@ -29,6 +29,11 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmAgendamento));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.LblCodigo = new System.Windows.Forms.Label();
             this.LblDataHorario = new System.Windows.Forms.Label();
             this.LblMedico = new System.Windows.Forms.Label();
@@ -40,6 +45,8 @@
             this.CbxFormaPagto = new System.Windows.Forms.ComboBox();
             this.MskDataHorario = new System.Windows.Forms.MaskedTextBox();
             this.GbxAgendamento = new System.Windows.Forms.GroupBox();
+            this.CbxMedico = new System.Windows.Forms.ComboBox();
+            this.CbxPaciente = new System.Windows.Forms.ComboBox();
             this.LblImagem = new System.Windows.Forms.Label();
             this.TsBotoes = new System.Windows.Forms.ToolStrip();
             this.TsbSalvarAgenda = new System.Windows.Forms.ToolStripButton();
@@ -50,17 +57,17 @@
             this.TssLimpar = new System.Windows.Forms.ToolStripSeparator();
             this.TsbExcluirAgenda = new System.Windows.Forms.ToolStripButton();
             this.TssExcluir = new System.Windows.Forms.ToolStripSeparator();
-            this.LvAgendamento = new System.Windows.Forms.ListView();
-            this.ChCodigo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.ChDataHorario = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.ChPaciente = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.ChMedico = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.ChEspecialidade = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.ChFormaPagamento = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.CbxPaciente = new System.Windows.Forms.ComboBox();
-            this.CbxMedico = new System.Windows.Forms.ComboBox();
+            this.DgvAgendamento = new System.Windows.Forms.DataGridView();
+            this.DgvCBox = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.DgvCodigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DgvData = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DvgPaciente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DgvEspecialidade = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DvgMedico = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DgvPagamento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GbxAgendamento.SuspendLayout();
             this.TsBotoes.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DgvAgendamento)).BeginInit();
             this.SuspendLayout();
             // 
             // LblCodigo
@@ -68,7 +75,7 @@
             this.LblCodigo.AutoSize = true;
             this.LblCodigo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.LblCodigo.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblCodigo.Location = new System.Drawing.Point(126, 20);
+            this.LblCodigo.Location = new System.Drawing.Point(126, 17);
             this.LblCodigo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LblCodigo.Name = "LblCodigo";
             this.LblCodigo.Size = new System.Drawing.Size(54, 18);
@@ -80,7 +87,7 @@
             this.LblDataHorario.AutoSize = true;
             this.LblDataHorario.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.LblDataHorario.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblDataHorario.Location = new System.Drawing.Point(71, 68);
+            this.LblDataHorario.Location = new System.Drawing.Point(79, 63);
             this.LblDataHorario.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LblDataHorario.Name = "LblDataHorario";
             this.LblDataHorario.Size = new System.Drawing.Size(101, 18);
@@ -92,7 +99,7 @@
             this.LblMedico.AutoSize = true;
             this.LblMedico.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.LblMedico.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblMedico.Location = new System.Drawing.Point(126, 164);
+            this.LblMedico.Location = new System.Drawing.Point(126, 208);
             this.LblMedico.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LblMedico.Name = "LblMedico";
             this.LblMedico.Size = new System.Drawing.Size(54, 18);
@@ -104,7 +111,7 @@
             this.LblPaciente.AutoSize = true;
             this.LblPaciente.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.LblPaciente.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblPaciente.Location = new System.Drawing.Point(114, 116);
+            this.LblPaciente.Location = new System.Drawing.Point(116, 110);
             this.LblPaciente.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LblPaciente.Name = "LblPaciente";
             this.LblPaciente.Size = new System.Drawing.Size(64, 18);
@@ -116,7 +123,7 @@
             this.LblEspecialidadeValor.AutoSize = true;
             this.LblEspecialidadeValor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.LblEspecialidadeValor.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblEspecialidadeValor.Location = new System.Drawing.Point(22, 212);
+            this.LblEspecialidadeValor.Location = new System.Drawing.Point(35, 158);
             this.LblEspecialidadeValor.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LblEspecialidadeValor.Name = "LblEspecialidadeValor";
             this.LblEspecialidadeValor.Size = new System.Drawing.Size(145, 18);
@@ -128,7 +135,7 @@
             this.LblFormaPagto.AutoSize = true;
             this.LblFormaPagto.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.LblFormaPagto.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblFormaPagto.Location = new System.Drawing.Point(21, 260);
+            this.LblFormaPagto.Location = new System.Drawing.Point(34, 254);
             this.LblFormaPagto.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LblFormaPagto.Name = "LblFormaPagto";
             this.LblFormaPagto.Size = new System.Drawing.Size(146, 18);
@@ -157,11 +164,12 @@
             "Oncologia - R$380,00",
             "Pediatria - R$80,00",
             "Urologia - R$160,00"});
-            this.CbxEspecialidadeValor.Location = new System.Drawing.Point(196, 206);
+            this.CbxEspecialidadeValor.Location = new System.Drawing.Point(196, 158);
             this.CbxEspecialidadeValor.Margin = new System.Windows.Forms.Padding(4);
             this.CbxEspecialidadeValor.Name = "CbxEspecialidadeValor";
             this.CbxEspecialidadeValor.Size = new System.Drawing.Size(328, 23);
             this.CbxEspecialidadeValor.TabIndex = 19;
+            this.CbxEspecialidadeValor.SelectedIndexChanged += new System.EventHandler(this.CbxEspecialidadeValor_SelectedIndexChanged);
             // 
             // CbxFormaPagto
             // 
@@ -173,7 +181,7 @@
             "Boleto",
             "Cartão",
             "Dinheiro"});
-            this.CbxFormaPagto.Location = new System.Drawing.Point(196, 257);
+            this.CbxFormaPagto.Location = new System.Drawing.Point(196, 254);
             this.CbxFormaPagto.Margin = new System.Windows.Forms.Padding(4);
             this.CbxFormaPagto.Name = "CbxFormaPagto";
             this.CbxFormaPagto.Size = new System.Drawing.Size(328, 23);
@@ -211,6 +219,36 @@
             this.GbxAgendamento.Size = new System.Drawing.Size(544, 298);
             this.GbxAgendamento.TabIndex = 0;
             this.GbxAgendamento.TabStop = false;
+            // 
+            // CbxMedico
+            // 
+            this.CbxMedico.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CbxMedico.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CbxMedico.FormattingEnabled = true;
+            this.CbxMedico.Location = new System.Drawing.Point(196, 206);
+            this.CbxMedico.Margin = new System.Windows.Forms.Padding(4);
+            this.CbxMedico.Name = "CbxMedico";
+            this.CbxMedico.Size = new System.Drawing.Size(328, 23);
+            this.CbxMedico.TabIndex = 25;
+            // 
+            // CbxPaciente
+            // 
+            this.CbxPaciente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CbxPaciente.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CbxPaciente.FormattingEnabled = true;
+            this.CbxPaciente.Items.AddRange(new object[] {
+            "Selecione",
+            "Cardiologia - R$190,00",
+            "Geriatria - R$100,00",
+            "Ginecologia - R$90,00",
+            "Oncologia - R$380,00",
+            "Pediatria - R$80,00",
+            "Urologia - R$160,00"});
+            this.CbxPaciente.Location = new System.Drawing.Point(196, 110);
+            this.CbxPaciente.Margin = new System.Windows.Forms.Padding(4);
+            this.CbxPaciente.Name = "CbxPaciente";
+            this.CbxPaciente.Size = new System.Drawing.Size(328, 23);
+            this.CbxPaciente.TabIndex = 24;
             // 
             // LblImagem
             // 
@@ -316,96 +354,110 @@
             this.TssExcluir.Name = "TssExcluir";
             this.TssExcluir.Size = new System.Drawing.Size(165, 6);
             // 
-            // LvAgendamento
+            // DgvAgendamento
             // 
-            this.LvAgendamento.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.LvAgendamento.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.LvAgendamento.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.ChCodigo,
-            this.ChDataHorario,
-            this.ChPaciente,
-            this.ChMedico,
-            this.ChEspecialidade,
-            this.ChFormaPagamento});
-            this.LvAgendamento.HideSelection = false;
-            this.LvAgendamento.Location = new System.Drawing.Point(13, 319);
-            this.LvAgendamento.Name = "LvAgendamento";
-            this.LvAgendamento.Size = new System.Drawing.Size(732, 209);
-            this.LvAgendamento.TabIndex = 19;
-            this.LvAgendamento.UseCompatibleStateImageBehavior = false;
-            this.LvAgendamento.View = System.Windows.Forms.View.Details;
+            this.DgvAgendamento.AllowUserToAddRows = false;
+            this.DgvAgendamento.AllowUserToDeleteRows = false;
+            this.DgvAgendamento.AllowUserToResizeColumns = false;
+            this.DgvAgendamento.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.DgvAgendamento.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.DgvAgendamento.CausesValidation = false;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DgvAgendamento.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.DgvAgendamento.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DgvAgendamento.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.DgvCBox,
+            this.DgvCodigo,
+            this.DgvData,
+            this.DvgPaciente,
+            this.DgvEspecialidade,
+            this.DvgMedico,
+            this.DgvPagamento});
+            this.DgvAgendamento.Location = new System.Drawing.Point(13, 319);
+            this.DgvAgendamento.MultiSelect = false;
+            this.DgvAgendamento.Name = "DgvAgendamento";
+            this.DgvAgendamento.RowHeadersVisible = false;
+            this.DgvAgendamento.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.DgvAgendamento.ShowCellErrors = false;
+            this.DgvAgendamento.ShowEditingIcon = false;
+            this.DgvAgendamento.ShowRowErrors = false;
+            this.DgvAgendamento.Size = new System.Drawing.Size(732, 218);
+            this.DgvAgendamento.TabIndex = 19;
+            this.DgvAgendamento.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvAgendamento_CellContentClick);
             // 
-            // ChCodigo
+            // DgvCBox
             // 
-            this.ChCodigo.Text = "Código";
+            this.DgvCBox.DataPropertyName = "Check";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.NullValue = false;
+            this.DgvCBox.DefaultCellStyle = dataGridViewCellStyle3;
+            this.DgvCBox.FalseValue = "false";
+            this.DgvCBox.HeaderText = "*";
+            this.DgvCBox.Name = "DgvCBox";
+            this.DgvCBox.TrueValue = "true";
+            this.DgvCBox.Width = 30;
             // 
-            // ChDataHorario
+            // DgvCodigo
             // 
-            this.ChDataHorario.Text = "Data e Horário";
-            this.ChDataHorario.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.ChDataHorario.Width = 110;
+            this.DgvCodigo.DataPropertyName = "Codigo";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DgvCodigo.DefaultCellStyle = dataGridViewCellStyle4;
+            this.DgvCodigo.HeaderText = "Código";
+            this.DgvCodigo.Name = "DgvCodigo";
+            this.DgvCodigo.ReadOnly = true;
+            this.DgvCodigo.Width = 50;
             // 
-            // ChPaciente
+            // DgvData
             // 
-            this.ChPaciente.Text = "Paciente";
-            this.ChPaciente.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.ChPaciente.Width = 200;
+            this.DgvData.DataPropertyName = "Data";
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DgvData.DefaultCellStyle = dataGridViewCellStyle5;
+            this.DgvData.HeaderText = "Data";
+            this.DgvData.Name = "DgvData";
+            this.DgvData.ReadOnly = true;
+            this.DgvData.Width = 120;
             // 
-            // ChMedico
+            // DvgPaciente
             // 
-            this.ChMedico.Text = "Médico";
-            this.ChMedico.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.ChMedico.Width = 130;
+            this.DvgPaciente.DataPropertyName = "Paciente";
+            this.DvgPaciente.HeaderText = "Paciente";
+            this.DvgPaciente.Name = "DvgPaciente";
+            this.DvgPaciente.ReadOnly = true;
+            this.DvgPaciente.Width = 170;
             // 
-            // ChEspecialidade
+            // DgvEspecialidade
             // 
-            this.ChEspecialidade.Text = "Especialidade";
-            this.ChEspecialidade.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.ChEspecialidade.Width = 130;
+            this.DgvEspecialidade.DataPropertyName = "Especialidade";
+            this.DgvEspecialidade.HeaderText = "Especialidade";
+            this.DgvEspecialidade.Name = "DgvEspecialidade";
+            this.DgvEspecialidade.ReadOnly = true;
+            this.DgvEspecialidade.Width = 130;
             // 
-            // ChFormaPagamento
+            // DvgMedico
             // 
-            this.ChFormaPagamento.Text = "Pagamento";
-            this.ChFormaPagamento.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.ChFormaPagamento.Width = 100;
+            this.DvgMedico.DataPropertyName = "Medico";
+            this.DvgMedico.HeaderText = "Médico";
+            this.DvgMedico.Name = "DvgMedico";
+            this.DvgMedico.ReadOnly = true;
+            this.DvgMedico.Width = 130;
             // 
-            // CbxPaciente
+            // DgvPagamento
             // 
-            this.CbxPaciente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CbxPaciente.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CbxPaciente.FormattingEnabled = true;
-            this.CbxPaciente.Items.AddRange(new object[] {
-            "Selecione",
-            "Cardiologia - R$190,00",
-            "Geriatria - R$100,00",
-            "Ginecologia - R$90,00",
-            "Oncologia - R$380,00",
-            "Pediatria - R$80,00",
-            "Urologia - R$160,00"});
-            this.CbxPaciente.Location = new System.Drawing.Point(196, 111);
-            this.CbxPaciente.Margin = new System.Windows.Forms.Padding(4);
-            this.CbxPaciente.Name = "CbxPaciente";
-            this.CbxPaciente.Size = new System.Drawing.Size(328, 23);
-            this.CbxPaciente.TabIndex = 24;
-            // 
-            // CbxMedico
-            // 
-            this.CbxMedico.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CbxMedico.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CbxMedico.FormattingEnabled = true;
-            this.CbxMedico.Items.AddRange(new object[] {
-            "Selecione",
-            "Cardiologia - R$190,00",
-            "Geriatria - R$100,00",
-            "Ginecologia - R$90,00",
-            "Oncologia - R$380,00",
-            "Pediatria - R$80,00",
-            "Urologia - R$160,00"});
-            this.CbxMedico.Location = new System.Drawing.Point(196, 159);
-            this.CbxMedico.Margin = new System.Windows.Forms.Padding(4);
-            this.CbxMedico.Name = "CbxMedico";
-            this.CbxMedico.Size = new System.Drawing.Size(328, 23);
-            this.CbxMedico.TabIndex = 25;
+            this.DgvPagamento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.DgvPagamento.DataPropertyName = "Pagamento";
+            this.DgvPagamento.HeaderText = "Pagamento";
+            this.DgvPagamento.Name = "DgvPagamento";
+            this.DgvPagamento.ReadOnly = true;
             // 
             // FrmAgendamento
             // 
@@ -413,7 +465,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gainsboro;
             this.ClientSize = new System.Drawing.Size(752, 540);
-            this.Controls.Add(this.LvAgendamento);
+            this.Controls.Add(this.DgvAgendamento);
             this.Controls.Add(this.TsBotoes);
             this.Controls.Add(this.LblImagem);
             this.Controls.Add(this.GbxAgendamento);
@@ -424,10 +476,12 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Agendamento de Consultas";
+            this.Shown += new System.EventHandler(this.FrmAgendamento_Shown_1);
             this.GbxAgendamento.ResumeLayout(false);
             this.GbxAgendamento.PerformLayout();
             this.TsBotoes.ResumeLayout(false);
             this.TsBotoes.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DgvAgendamento)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -454,15 +508,16 @@
         private System.Windows.Forms.ToolStripButton TsbLimparAgenda;
         private System.Windows.Forms.ToolStripSeparator TssLimpar;
         private System.Windows.Forms.ToolStripButton TsbExcluirAgenda;
-        private System.Windows.Forms.ListView LvAgendamento;
-        private System.Windows.Forms.ColumnHeader ChDataHorario;
-        private System.Windows.Forms.ColumnHeader ChPaciente;
-        private System.Windows.Forms.ColumnHeader ChMedico;
-        private System.Windows.Forms.ColumnHeader ChEspecialidade;
-        private System.Windows.Forms.ColumnHeader ChFormaPagamento;
-        private System.Windows.Forms.ColumnHeader ChCodigo;
         private System.Windows.Forms.ToolStripSeparator TssExcluir;
         private System.Windows.Forms.ComboBox CbxMedico;
         private System.Windows.Forms.ComboBox CbxPaciente;
+        private System.Windows.Forms.DataGridView DgvAgendamento;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn DgvCBox;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DgvCodigo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DgvData;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DvgPaciente;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DgvEspecialidade;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DvgMedico;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DgvPagamento;
     }
 }

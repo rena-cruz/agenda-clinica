@@ -38,7 +38,9 @@ namespace AgendaClinica.Formularios
                     MessageBox.Show("Selecione a situação financeira antes de salvar");
                     return;
                 }
-                servico.SalvarPaciente(CarregaPacienteDto());
+                var seqPaciente = servico.SalvarPaciente(CarregaPacienteDto());
+                TbxCodigo.Text = seqPaciente.ToString();
+
                 MessageBox.Show($"O registro foi salvo");
             }
             catch (Exception ex)

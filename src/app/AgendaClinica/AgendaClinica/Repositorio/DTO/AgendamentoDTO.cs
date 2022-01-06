@@ -8,7 +8,7 @@ namespace AgendaClinica.Repositorio.DTO
 {
     internal class AgendamentoDTO
     {
-        public string Codigo { get; set; }
+        public long Codigo { get; set; }
 
         public DateTime DataHorario { get; set;}
 
