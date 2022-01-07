@@ -50,30 +50,43 @@ namespace AgendaClinica.Formularios
             {
                 if (CbxPaciente.Text.Equals("Selecione"))
                 {
-                    MessageBox.Show("Selecione o paciente antes de salvar");
+                    MessageBox.Show("Selecione o paciente antes de salvar", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
                 var seqAgendamento = servico.SalvarAgendamento(CarregaAgendamentoDto());
                 TbxCodigo.Text = seqAgendamento.ToString();
                 CarregarTabela();
 
-                MessageBox.Show($"O registro foi salvo");
+                MessageBox.Show($"O registro foi salvo", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro ao salvar o registro.\n{ex.Message}");
+                MessageBox.Show($"Erro ao salvar o registro.\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void TsbPesquisar_Click(object sender, EventArgs e)
         {
-            try 
+            try
             {
                 var agendamento = servico.BuscarAgendamento(long.Parse(TbxCodigo.Text));
+                if (TbxCodigo.Text.Equals(agendamento.Codigo.ToString()))
+                {
+                    TbxCodigo.Text = agendamento.Codigo.ToString();
+                    MskDataHorario.Text = agendamento.DataHorario.ToString("dd/MM/yyyy HH:mm:ss");
+                    CbxPaciente.Text = agendamento.Paciente;
+                    CbxEspecialidadeValor.Text = agendamento.EspecialidadeValor;
+                    CbxMedico.Text = agendamento.Medico;
+                    CbxFormaPagto.Text = agendamento.FormaPagamento;
+                }
+                else
+                {
+                    MessageBox.Show("O código informado não existe", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                MessageBox.Show($"Erro na pesquisa\n{ex.Message}");
+                MessageBox.Show($"Erro ao buscar os dados do banco\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -98,7 +111,7 @@ namespace AgendaClinica.Formularios
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro ao carregar a tabela\n{ex.Message}");
+                MessageBox.Show($"Erro ao carregar a tabela\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -114,7 +127,41 @@ namespace AgendaClinica.Formularios
 
         private void TsbExcluir_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("O agendamento foi excluido");
+            int indice;
+
+            if (MessageBox.Show("Confirma a exclusão?", "Atenção", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+            {
+                return;
+            }
+
+            try
+            {
+                do
+                {
+                    indice = -1;
+                    for (int i = 0; i < DgvAgendamento.Rows.Count; i++)
+                    {
+                        if ((bool)DgvAgendamento.Rows[i].Cells[0].Value)
+                        {
+                            indice = i;
+                            break;
+                        }
+                    }
+
+                    if (indice > -1)
+                    {
+                        if ((long)DgvAgendamento.Rows[indice].Cells["DgvCodigo"].Value > 0L)
+                        {
+                            servico.RemoverAgendamento((long)DgvAgendamento.Rows[indice].Cells["DgvCodigo"].Value);
+                        }
+                        dtAgendamento.Rows.RemoveAt(indice);
+                    }
+                } while (indice > -1);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Não foi possivel excluir o agendamento.\n{ex.Message}", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void CbxEspecialidadeValor_SelectedIndexChanged(object sender, EventArgs e)
@@ -152,6 +199,29 @@ namespace AgendaClinica.Formularios
         {
             TbxCodigo.Focus();
             CarregarTabela();
+        }
+
+        private void CbxMedico_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(CbxMedico.Text) || CbxMedico.Text.Equals("Selecione")) { return; }
+
+                var dataHora = DateTime.Parse(MskDataHorario.Text); 
+                if (!servico.DataHorarioMedicoDisponivel(dataHora, CbxMedico.Text))
+                {
+                    MessageBox.Show($"Verifique a jornada do médico.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao buscar os dados do banco\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void MskDataHorario_Validated(object sender, EventArgs e)
+        {
+            CbxMedico_SelectedIndexChanged(null, null);
         }
     }
 }

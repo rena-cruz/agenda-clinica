@@ -47,15 +47,15 @@ namespace AgendaClinica.Formularios
             {
                 if (CbxEspecialidade.Text.Equals("Selecione"))
                 {
-                    MessageBox.Show("Selecione a especialidade antes de salvar");
+                    MessageBox.Show("Selecione a especialidade antes de salvar", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
                 servico.SalvarMedico(CarregaMedicoDto());
-                MessageBox.Show($"O registro foi salvo");
+                MessageBox.Show($"O registro foi salvo com sucesso", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro ao salvar o registro.\n{ex.Message}");
+                MessageBox.Show($"Erro ao salvar o registro.\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -65,14 +65,14 @@ namespace AgendaClinica.Formularios
             {
                 if (string.IsNullOrWhiteSpace(TbxCRM.Text))
                 {
-                    MessageBox.Show("Informe o numero do CRM");
+                    MessageBox.Show("Para pesquisar informe o número do CRM", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
                 if (!string.IsNullOrWhiteSpace(TbxNome.Text) || !string.IsNullOrWhiteSpace(TbxEmail.Text) ||
                     !CbxEspecialidade.Text.Equals("Selecione") || dtJornada.Rows.Count > 0)
                 {
-                    MessageBox.Show("Limpe a tela e informe o CRM");
+                    MessageBox.Show("Limpe a tela e informe o número do CRM", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
@@ -122,13 +122,13 @@ namespace AgendaClinica.Formularios
         {
             if (CbxDiaSemana.Text == "Selecione")
             {
-                MessageBox.Show("Informe um dia da semana válido");
+                MessageBox.Show("Informe um dia da semana válido", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
             if (CbxPeriodo.Text == "Selecione")
             {
-                MessageBox.Show("Informe um periodo válido");
+                MessageBox.Show("Informe um periodo válido", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 

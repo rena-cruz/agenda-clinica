@@ -404,6 +404,50 @@ namespace AgendaClinica.Repositorio
             }
         }
 
+        public static List<MedicoJornadaDTO> RetornaJornadaMedicoPorNome(string pNomeMedico)
+        {
+            try
+            {
+                List<MedicoJornadaDTO> listaJornada = new List<MedicoJornadaDTO>();
+
+                StringBuilder sql = new StringBuilder();
+                sql.Append($" SELECT b.seqjornada, c.periodo, d.diasemana ");
+                sql.Append($" FROM jornadamedico a, jornada b, periodo c, diasemana d, medico e ");
+                sql.Append($" WHERE e.nome = :nome ");
+                sql.Append($" AND b.seqjornada = a.seqjornada ");
+                sql.Append($" AND c.seqperiodo = b.seqperiodo ");
+                sql.Append($" AND d.seqdiasemana = b.seqdiasemana ");
+                sql.Append($" AND a.crm = e.crm ");
+                sql.Append($" ORDER BY a.seqjornada ");
+  
+                OracleCommand comando = new OracleCommand();
+                comando.Connection = ConexaoBD.AbrirConexao(stringConexao);
+                comando.CommandText = sql.ToString();
+                comando.Parameters.Add(":nome", OracleDbType.Varchar2).Value = pNomeMedico;
+                OracleDataReader reader = comando.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    listaJornada.Add(new MedicoJornadaDTO()
+                    {
+                        SeqJornada = reader.GetInt64(0),
+                        Periodo = reader.GetString(1),
+                        DiaSemana = reader.GetString(2)
+                    });
+                }
+
+                reader.Dispose();
+                ConexaoBD.FecharConexao();
+
+                return listaJornada;
+            }
+            catch (Exception ex)
+            {
+                ConexaoBD.FecharConexao();
+                throw ex;
+            }
+        }
+
         public static List<AgendamentoDTO> RetornaAgendamento()
         {
             try

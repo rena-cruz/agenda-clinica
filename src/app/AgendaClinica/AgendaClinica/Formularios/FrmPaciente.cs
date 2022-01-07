@@ -1,7 +1,6 @@
 ﻿using AgendaClinica.Repositorio.DTO;
 using AgendaClinica.Servico;
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace AgendaClinica.Formularios
@@ -35,13 +34,13 @@ namespace AgendaClinica.Formularios
             {
                 if (CbxSituacaoFinanceira.Text.Equals("Selecione"))
                 {
-                    MessageBox.Show("Selecione a situação financeira antes de salvar");
+                    MessageBox.Show("Selecione a situação financeira antes de salvar", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
                 var seqPaciente = servico.SalvarPaciente(CarregaPacienteDto());
                 TbxCodigo.Text = seqPaciente.ToString();
 
-                MessageBox.Show($"O registro foi salvo");
+                MessageBox.Show($"O registro foi salvo com sucesso", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -55,7 +54,7 @@ namespace AgendaClinica.Formularios
             {
                 if (string.IsNullOrWhiteSpace(TbxCodigo.Text))
                 {
-                    MessageBox.Show("Informe o código");
+                    MessageBox.Show("Informe o código do paciente", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
@@ -64,7 +63,7 @@ namespace AgendaClinica.Formularios
                 if (!string.IsNullOrWhiteSpace(TbxNome.Text) || !string.IsNullOrWhiteSpace(TbxEmail.Text) ||
                         !string.IsNullOrWhiteSpace(celular) || !CbxSituacaoFinanceira.Text.Equals("Selecione"))
                 {
-                    MessageBox.Show("Limpe a tela e informe o código");
+                    MessageBox.Show("Limpe a tela e informe o código do paciente", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
@@ -81,7 +80,7 @@ namespace AgendaClinica.Formularios
                 }
                 else
                 {
-                    MessageBox.Show("O código informado não existe");
+                    MessageBox.Show("O código informado não existe", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)

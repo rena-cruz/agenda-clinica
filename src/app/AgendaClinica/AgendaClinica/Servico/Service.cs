@@ -6,13 +6,14 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace AgendaClinica.Servico
 {
     internal class Service
     {
-        public Service() 
+        public Service()
         {
             OperacaoBD.stringConexao = RetornaStringConexao();
         }
@@ -34,7 +35,7 @@ namespace AgendaClinica.Servico
             try
             {
                 var especialidades = OperacaoBD.BuscarEspecialidade();
-                especialidades.Insert(0,"Selecione");
+                especialidades.Insert(0, "Selecione");
                 return especialidades;
             }
             catch (Exception ex)
@@ -155,12 +156,12 @@ namespace AgendaClinica.Servico
                 sql = $"DELETE FROM jornada WHERE seqjornada = {pSeqJornada}";
                 OperacaoBD.ExecutarComando(sql);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
         }
-        
+
         public MedicoDTO CarregarMedicoJornada(string pCrm)
         {
             try
@@ -322,7 +323,7 @@ namespace AgendaClinica.Servico
                 var seqFinanceiro = OperacaoBD.BuscarSeqFinanceiro(pPaciente.SituacaoFinanceira);
 
                 sql.AppendLine($" UPDATE paciente a ");
-                sql.AppendLine($" SET a.nome = '{pPaciente.Nome}', a.email = '{pPaciente.Email}', a.dtanascimento = '{pPaciente.DataNascimento.ToString("dd-MMM-yyyy", CultureInfo.InvariantCulture)}', ");
+                sql.AppendLine($" SET a.nome = '{pPaciente.Nome}', a.email = '{pPaciente.Email}', a.dtanascimento = '{pPaciente.DataNascimento.ToString("dd/MM/yyyy")}', ");
                 sql.AppendLine($" a.telefone = {pPaciente.Celular}, a.seqfinanceiro = {seqFinanceiro} ");
                 sql.AppendLine($" WHERE a.seqpaciente = {pPaciente.Codigo} ");
                 OperacaoBD.ExecutarComando(sql.ToString());
@@ -360,6 +361,19 @@ namespace AgendaClinica.Servico
         #endregion
 
         #region Agendamento
+
+        public void RemoverAgendamento(long pCodigo)
+        {
+            try
+            {
+                string sql = $"DELETE FROM agendamento WHERE seqagendamento = {pCodigo}";
+                OperacaoBD.ExecutarComando(sql);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
         public List<AgendamentoDTO> BuscarAgendamento()
         {
@@ -404,6 +418,16 @@ namespace AgendaClinica.Servico
             }
         }
 
+        public bool DataHorarioMedicoDisponivel(DateTime pDataAgendamento, string pMedico)
+        {
+            var listaJornada = OperacaoBD.RetornaJornadaMedicoPorNome(pMedico);
+            var diaSemanaPeriodo = RetornaDiaSemanaPeriodo(pDataAgendamento);
+            var qtdJornada = listaJornada
+                .Where(w => w.DiaSemana.ToLower() == diaSemanaPeriodo[0] && w.Periodo == diaSemanaPeriodo[1])
+                .Count();
+            return qtdJornada > 0;
+        }
+
         private bool VerificaAgendamentoExistente(long pCodigo)
         {
             return OperacaoBD.ValidaCodigoAgendamento(pCodigo);
@@ -420,7 +444,7 @@ namespace AgendaClinica.Servico
                 var seqFormaPagamento = OperacaoBD.BuscarSeqFormaPagamento(pAgendamento.FormaPagamento);
 
                 sql.AppendLine($" UPDATE agendamento a ");
-                sql.AppendLine($" SET a.dtahoragendamento = {pAgendamento.DataHorario.ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture)}, ");
+                sql.AppendLine($" SET a.dtahoragendamento = {pAgendamento.DataHorario.ToString("dd/MM/yyyy HH:mm:ss")}, ");
                 sql.AppendLine($" a.vlragendamento = '{pAgendamento.EspecialidadeValor}', a.crm = {pAgendamento.Medico}, ");
                 sql.AppendLine($" a.seqpaciente = {pAgendamento.Paciente}, a.seqformapagto = {seqFormaPagamento} ");
                 sql.AppendLine($" WHERE a.seqagendamento = {pAgendamento.Codigo} ");
@@ -443,7 +467,7 @@ namespace AgendaClinica.Servico
                 {
                     valorAgendamento = double.Parse(pAgendamento.EspecialidadeValor.Split('-')[1].Trim());
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     valorAgendamento = 0;
                 }
@@ -466,6 +490,31 @@ namespace AgendaClinica.Servico
             {
                 throw new Exception($"Erro ao incluir o agendamento.\n{ex.Message}");
             }
+        }
+
+        private string[]  RetornaDiaSemanaPeriodo(DateTime pDataAgendamento)
+        {
+            var diaSemana = pDataAgendamento.ToString("dddd").Split('-')[0];
+            string periodo;
+
+            if (pDataAgendamento.Hour >= 8 && pDataAgendamento.Hour <= 12)
+            {
+                periodo = "Manha";
+            }
+            else if (pDataAgendamento.Hour >= 13 && pDataAgendamento.Hour < 18)
+            {
+                periodo = "Tarde";
+            }
+            else if (pDataAgendamento.Hour >= 18 && pDataAgendamento.Hour <= 21)
+            {
+                periodo = "Noite";
+            }
+            else
+            {
+                periodo = "Indisponivel";
+            }
+
+            return new[] { diaSemana, periodo };
         }
 
         #endregion
