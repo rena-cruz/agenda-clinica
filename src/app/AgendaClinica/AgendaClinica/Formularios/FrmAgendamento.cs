@@ -35,8 +35,6 @@ namespace AgendaClinica.Formularios
             try
             {
                 CbxPaciente.DataSource = servico.BuscarPaciente();
-                CbxEspecialidadeValor.DataSource = servico.BuscarEspecialidadeValor();
-                CbxFormaPagto.DataSource = servico.BuscarFormaPagamento();
             }
             catch (Exception ex)
             {
@@ -221,7 +219,34 @@ namespace AgendaClinica.Formularios
 
         private void MskDataHorario_Validated(object sender, EventArgs e)
         {
-            CbxMedico_SelectedIndexChanged(null, null);
+            DateTime dataAgendamento;
+            try
+            {
+                dataAgendamento = DateTime.Parse(MskDataHorario.Text);
+            }
+            catch (Exception)
+            {
+                return;
+            }
+
+            if (!string.IsNullOrEmpty(MskDataHorario.Text) && servico.HoraAgendamentoValida(dataAgendamento))
+            {
+                CbxMedico_SelectedIndexChanged(null, null);
+            }
+            else
+            {
+                MessageBox.Show($"Horário inválido.\n Agendamento permitido a cada 1 hora", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MskDataHorario.Focus();
+            }
+        }
+
+        private void CbxPaciente_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!CbxPaciente.Text.Equals("Selecione"))
+            {
+                CbxEspecialidadeValor.DataSource = servico.BuscarEspecialidadeValor(CbxPaciente.Text);
+                CbxFormaPagto.DataSource = servico.BuscarFormaPagamento(CbxPaciente.Text);
+            }
         }
     }
 }

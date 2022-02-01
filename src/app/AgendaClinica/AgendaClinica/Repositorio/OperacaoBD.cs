@@ -299,18 +299,28 @@ namespace AgendaClinica.Repositorio
             }
         }
 
-        public static List<string> BuscarEspecialidadeValor()
+        public static List<string> BuscarEspecialidadeValor(double pValorMaximo = 0)
         {
             try
             {
                 List<string> listaEspecialidadeValor = new List<string>();
 
                 StringBuilder sql = new StringBuilder();
-                sql.Append($" SELECT a.especialidade || ' - ' || a.vlrpadraoconsulta FROM especialidademedico a ORDER BY a.seqespecialidade ");
+                sql.Append($" SELECT a.especialidade || ' - ' || a.vlrpadraoconsulta ");
+                sql.Append($" FROM especialidademedico a ");
+                if (pValorMaximo > 0)
+                {
+                    sql.Append($" WHERE a.vlrpadraoconsulta <= :valormaximo ");
+                }
+                sql.Append($" ORDER BY a.seqespecialidade ");
 
                 OracleCommand comando = new OracleCommand();
                 comando.Connection = ConexaoBD.AbrirConexao(stringConexao);
                 comando.CommandText = sql.ToString();
+                if (pValorMaximo > 0)
+                {
+                    comando.Parameters.Add(":valormaximo", OracleDbType.Double).Value = pValorMaximo;
+                }
                 OracleDataReader reader = comando.ExecuteReader();
 
                 while (reader.Read())

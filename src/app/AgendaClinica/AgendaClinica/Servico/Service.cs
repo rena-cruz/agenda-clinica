@@ -115,11 +115,21 @@ namespace AgendaClinica.Servico
             }
         }
 
-        public List<string> BuscarEspecialidadeValor()
+        public List<string> BuscarEspecialidadeValor(string pPaciente)
         {
             try
             {
-                var especialidadeValor = OperacaoBD.BuscarEspecialidadeValor();
+                var especialidadeValor = new List<string>();
+                var paciente = OperacaoBD.RetornaPacientePorNome(pPaciente);
+                if (paciente.SituacaoFinanceira == Constantes.PACIENTE_LIBERADO)
+                {
+                    especialidadeValor = OperacaoBD.BuscarEspecialidadeValor();
+                }
+                else if (paciente.SituacaoFinanceira == Constantes.PACIENTE_RESTRITO)
+                {
+                    especialidadeValor = OperacaoBD.BuscarEspecialidadeValor(150);
+                }
+
                 especialidadeValor.Insert(0, "Selecione");
                 return especialidadeValor;
             }
@@ -129,11 +139,22 @@ namespace AgendaClinica.Servico
             }
         }
 
-        public List<string> BuscarFormaPagamento()
+        public List<string> BuscarFormaPagamento(string pPaciente)
         {
             try
             {
-                var formaPagamento = OperacaoBD.BuscarFormaPagamento();
+                var formaPagamento = new List<string>();
+                var paciente = OperacaoBD.RetornaPacientePorNome(pPaciente);
+                if (paciente.SituacaoFinanceira == Constantes.PACIENTE_LIBERADO)
+                {
+                    formaPagamento = OperacaoBD.BuscarFormaPagamento();
+                }
+                else if (paciente.SituacaoFinanceira == Constantes.PACIENTE_RESTRITO)
+                {
+                    formaPagamento.Add(Constantes.PAGTO_CARTAO);
+                    formaPagamento.Add(Constantes.PAGTO_DINHEIRO);
+                }
+
                 formaPagamento.Insert(0, "Selecione");
                 return formaPagamento;
             }
@@ -426,6 +447,11 @@ namespace AgendaClinica.Servico
                 .Where(w => w.DiaSemana.ToLower() == diaSemanaPeriodo[0] && w.Periodo == diaSemanaPeriodo[1])
                 .Count();
             return qtdJornada > 0;
+        }
+
+        public bool HoraAgendamentoValida(DateTime pDataAgendamento) 
+        {
+            return pDataAgendamento.Minute == 0 ? true : false;
         }
 
         private bool VerificaAgendamentoExistente(long pCodigo)
